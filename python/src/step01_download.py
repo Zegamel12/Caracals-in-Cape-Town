@@ -1,6 +1,6 @@
 # Import pandas, geopandas and pyproj
-import pandas as pd
-import geopandas as gpd
+import pandas as pd #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
+import geopandas as gpd #https://www.geeksforgeeks.org/python/geopandas-tutorial/
 import pyproj
 
 
