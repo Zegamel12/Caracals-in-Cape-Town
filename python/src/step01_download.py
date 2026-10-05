@@ -5,9 +5,6 @@ import pyproj
 
 
 
-
-
-
 ### --- Import GPS data ---
 
 # https://github.com/movebank/movebank-api-doc/tree/master
