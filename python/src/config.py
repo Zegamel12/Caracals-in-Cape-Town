@@ -4,7 +4,7 @@ from pathlib import Path
 
 base = Path('.') # This references the root of your current directory
 
-# Folders
+# Folders/directories
 (base / "data").mkdir(exist_ok=True)
 (base / "data" / "raw").mkdir(exist_ok=True)
 (base / "data" / "output").mkdir(exist_ok=True)
