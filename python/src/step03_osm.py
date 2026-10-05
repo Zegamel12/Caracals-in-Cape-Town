@@ -14,3 +14,9 @@ import matplotlib.pyplot as plt
 
 # Plot the network
 ox.plot.plot_graph(road_network)
+
+# Import osmx and rasterio
+import geopandas as gpd
+import pyproj
+import osmnx as ox
+import rasterio
