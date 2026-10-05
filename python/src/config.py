@@ -4,23 +4,39 @@ from pathlib import Path
 
 base = Path('.') # This references the root of your current directory
 
-# Folders/directories
-(base / "data").mkdir(exist_ok=True)
-(base / "data" / "raw").mkdir(exist_ok=True)
-(base / "data" / "output").mkdir(exist_ok=True)
-(base / "data" / "processed").mkdir(exist_ok=True)
+# Step directories
+step_names = [
+    "step01_download",
+    "step02_extent",
+    "step03_osm",
+    "step04_trajectories",
+    "step05_animation",
+    "step06_distance",
+    "step07_speed",
+    "step08_compare",
+    "step09_visualize",
+    "step10_daynight",
+    "step11_urban",
+    "step12_dashboard"
+]
+
+# Create step directories and data/temp directories
+for step in step_names:
+    step_dir = base / "step_dirs" / step
+    (step_dir / "data").mkdir(parents==True, exist_ok=True)
+    (step_dir / "temp").mkdir(parents==True, exist_ok=True)
+    
+
+# Input/output files
 
 
-# Data files
-GPS_RAW = base / "data" / "raw" / "...." # ... replace with file name and its extensions
-GPS_PROCESSED = base / "data" / "processed" / "...."
 
-ROADS = base / "data" / "processed" / "...."
-URBAN = base / "data" / "processed" / "...."
-
-# Input variables
+# Coordinate reference systems
 GPS_CRS = "EPSG:4326"
 ANALYSIS_CRS = "EPSG:xxxxx"
+
+# Movebank
+MOVEbank_STUDY_ID = "1832666571"
 
 # Set Movebank username and password
 username_movebank = "Jovado" 
