@@ -8,6 +8,8 @@ base = Path('.') # This references the root of your current directory
 (base / "data").mkdir(exist_ok=True)
 (base / "data" / "raw").mkdir(exist_ok=True)
 (base / "data" / "output").mkdir(exist_ok=True)
+(base / "data" / "processed").mkdir(exist_ok=True)
+
 
 # Data files
 GPS_RAW = base / "data" / "raw" / "...." # ... replace with file name and its extensions
