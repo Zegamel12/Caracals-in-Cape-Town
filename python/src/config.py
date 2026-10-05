@@ -19,3 +19,8 @@ URBAN = base / "data" / "processed" / "...."
 # Input variables
 GPS_CRS = "EPSG:4326"
 ANALYSIS_CRS = "EPSG:xxxxx"
+
+# Set Movebank username and password
+username_movebank = "Jovado" 
+password_movebank = "waardeloos123"
+
