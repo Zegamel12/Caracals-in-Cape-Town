@@ -26,7 +26,8 @@
 **.[gG][iI][fF]
 
 # directories
-data
+**/data/*
+!**/data/.gitkeep
 output
 # pixi environments
 .pixi/*
