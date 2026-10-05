@@ -19,10 +19,7 @@ import io
 
 import pandas as pd
 import requests
-
-# Set username and password [move to global parameters]
-username = "Jovado" 
-password = "waardeloos123"
+from config import username_movebank, password_movebank
 
 # Movebank API accesspoint
 url = "https://www.movebank.org/movebank/service/direct-read"
@@ -35,7 +32,7 @@ params = {
 }
 
 with requests.Session() as session:
-    session.auth = (username, password)
+    session.auth = (username_movebank, password_movebank)
 
     # First request retrieves the license page
     response = session.get(url, params=params, timeout=300)

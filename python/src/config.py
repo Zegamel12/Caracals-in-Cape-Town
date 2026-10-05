@@ -2,3 +2,6 @@
 
 from pathlib import Path
 
+# Set Movebank username and password
+username_movebank = "Jovado" 
+password_movebank = "waardeloos123"
