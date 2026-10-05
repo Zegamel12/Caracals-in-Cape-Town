@@ -28,3 +28,6 @@
 # directories
 data
 output
+# pixi environments
+.pixi/*
+!.pixi/config.toml
