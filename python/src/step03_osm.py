@@ -2,7 +2,6 @@
 
 # https://osmnx.readthedocs.io/en/stable/user-reference.html
 
-from config import ANALYSIS_CRS
 import osmnx as ox
 import geopandas as gpd
 import matplotlib.pyplot as plt
@@ -25,7 +24,7 @@ nodes, roads = ox.graph_to_gdfs(road_network)
 roads=roads.to_crs(ANALYSIS_CRS)
 
 # save the road networks
-roads.to_file(ROADS, layer ="roads", driver="GPKG")
+roads.to_file(ROAD, layer ="roads", driver="GPKG")
 
 #return roads
 
