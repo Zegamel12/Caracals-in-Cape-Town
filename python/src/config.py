@@ -25,6 +25,7 @@ for step in step_names:
     step_dir = base / "step_dirs" / step
     (step_dir / "data").mkdir(exist_ok=True)
     (step_dir / "temp").mkdir(exist_ok=True)
+
     
 
 # Input/output files
