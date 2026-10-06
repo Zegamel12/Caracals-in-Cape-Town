@@ -33,6 +33,9 @@ with requests.Session() as session:
     response = session.get(url, params=params, timeout=300)
    
 # Read the data into a dataframe
+<<<<<<< HEAD
+gps_data = pd.read_csv(io.BytesIO(response.content))
+=======
 gps_csv = pd.read_csv(io.BytesIO(response.content))
 
 # Create a GeoDataFrame with points from longitude and latitude
@@ -54,8 +57,10 @@ gps_gdf_utm.plot()
 gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
 
 
+
 # Prepare data for step 2, look if this is still needed as 1 is finished
 from pathlib import Path
 gps_file = Path("data/raw/gps_data.csv")
 gps_file.parent.mkdir(parents=True, exist_ok=True)
 gps_csv.to_csv(gps_file, index=False)
+
