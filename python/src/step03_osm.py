@@ -15,6 +15,10 @@ from python.src.step02_extent import extent
 
 # def_get_road_network(bbox):
 
+# https://osmnx.readthedocs.io/
+# OSMnx user reference:
+# https://osmnx.readthedocs.io/en/stable/user-reference.html
+
 # Example BBox [improve and move to config.py]
 extent_wgs84= extent.to_crs(GPS_CRS)
 minx, ymin, xmax, ymax = extent_wgs84.total_bounds
