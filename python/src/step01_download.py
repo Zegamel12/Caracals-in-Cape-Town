@@ -1,9 +1,10 @@
-# Import 
+# Import
+import getpass
 import hashlib
 import io
 
-import geopandas as gpd
-import pandas as pd
+import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
+import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
 from config import GPS_CRS, password_movebank, username_movebank
 
