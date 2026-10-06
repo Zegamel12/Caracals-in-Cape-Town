@@ -23,8 +23,8 @@ step_names = [
 # Create step directories and data/temp directories
 for step in step_names:
     step_dir = base / "step_dirs" / step
-    (step_dir / "data").mkdir(parents==True, exist_ok=True)
-    (step_dir / "temp").mkdir(parents==True, exist_ok=True)
+    (step_dir / "data").mkdir(parents=True, exist_ok=True)
+    (step_dir / "temp").mkdir(parents=True, exist_ok=True)
     
 
 # Input/output files

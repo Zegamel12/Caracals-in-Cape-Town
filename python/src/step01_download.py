@@ -38,3 +38,9 @@ with requests.Session() as session:
    
 # Read the data into a dataframe
 gps_data = pd.read_csv(io.BytesIO(response.content))
+
+# Prepare data for step 2
+from pathlib import Path
+gps_file = Path("data/raw/gps_data.csv")
+gps_file.parent.mkdir(parents=True, exist_ok=True)
+gps_data.to_csv(gps_file, index=False)
