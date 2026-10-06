@@ -24,7 +24,7 @@ nodes, roads = ox.graph_to_gdfs(road_network)
 roads=roads.to_crs(ANALYSIS_CRS)
 
 # save the road networks
-roads.to_file(ROAD, layer ="roads", driver="GPKG")
+roads.to_file(ROADS, layer ="roads", driver="GPKG")
 
 #return roads
 

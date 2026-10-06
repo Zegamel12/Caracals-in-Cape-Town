@@ -1,31 +1,27 @@
-# Import pandas, geopandas and pyproj
-import pandas as pd #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
-import geopandas as gpd #https://www.geeksforgeeks.org/python/geopandas-tutorial/
-import pyproj
-
-
-
-### --- Import GPS data ---
-
-# https://github.com/movebank/movebank-api-doc/tree/master
+# Import
 import getpass
 import hashlib
 import io
 
-import pandas as pd
+import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
+import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
-from config import username_movebank, password_movebank
+from config import GPS_CRS, password_movebank, username_movebank
+
+#  Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
 
 # Movebank API accesspoint
 url = "https://www.movebank.org/movebank/service/direct-read"
 
-# Parameters [Make more specific, remove redundant columns]
+# Parameters
+# Explanation: https://www.movebank.org/cms/movebank-content/movebank-attribute-dictionary#tag_attributes
 params = {
     "entity_type": "event",
     "study_id": "1832666571",
-    "attributes": "all",
+    "attributes": "individual_local_identifier,timestamp,location_long,location_lat,gps_hdop" # Only import wanted columns
 }
 
+# Request the dataset with the parameters defined above
 with requests.Session() as session:
     session.auth = (username_movebank, password_movebank)
 
@@ -37,4 +33,26 @@ with requests.Session() as session:
     response = session.get(url, params=params, timeout=300)
    
 # Read the data into a dataframe
+<<<<<<< HEAD
 gps_data = pd.read_csv(io.BytesIO(response.content))
+=======
+gps_csv = pd.read_csv(io.BytesIO(response.content))
+
+# Create a GeoDataFrame with points from longitude and latitude
+# Manual: https://geopandas.org/en/stable/docs/user_guide.html
+gps_gdf = gpd.GeoDataFrame(gps_csv,
+    geometry=gpd.points_from_xy(
+        gps_csv["location_long"],
+        gps_csv["location_lat"]),
+    crs=GPS_CRS)
+
+# Convert projection to UTM
+gps_gdf_utm = gps_gdf.to_crs("EPSG:32734")
+
+# Check plot
+gps_gdf_utm.plot()
+
+# Write processed dataset to file
+# https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
+gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
+>>>>>>> b6493ac9deecd43e931ba96ec2c5c4990e043296
