@@ -33,9 +33,6 @@ with requests.Session() as session:
     response = session.get(url, params=params, timeout=300)
    
 # Read the data into a dataframe
-<<<<<<< HEAD
-gps_data = pd.read_csv(io.BytesIO(response.content))
-=======
 gps_csv = pd.read_csv(io.BytesIO(response.content))
 
 # Create a GeoDataFrame with points from longitude and latitude
