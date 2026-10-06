@@ -13,7 +13,7 @@ from step01_download import gps_gdf
   #https://plotly.com/python/animations/
   # https://plotly.com/python/tile-scatter-maps/
 
-fig = px.scatter_map(gps_gdf, lat= gps_gdf.geometry.y, lon=gps_gdf.geometry.x, color=...., hover_name=".....", zoom=.., height= ..,)
+fig = px.scatter_map(gps_gdf, lat= gps_gdf.geometry.y, lon=gps_gdf.geometry.x, color=....,animation_frame=...,hover_name=".....", zoom=.., height= ..,)
 
   # Set map Style
 
