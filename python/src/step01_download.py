@@ -6,7 +6,7 @@ import io
 import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
 import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
-from config import GPS_CRS, password_movebank, username_movebank
+from config import ANALYSIS_CRS, GPS_CRS, password_movebank, username_movebank
 
 #  Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
 
@@ -44,7 +44,7 @@ gps_gdf = gpd.GeoDataFrame(gps_csv,
     crs=GPS_CRS)
 
 # Convert projection to UTM
-gps_gdf_utm = gps_gdf.to_crs("EPSG:32734")
+gps_gdf_utm = gps_gdf.to_crs(ANALYSIS_CRS)
 
 # Check plot
 gps_gdf_utm.plot()
@@ -52,3 +52,12 @@ gps_gdf_utm.plot()
 # Write processed dataset to file
 # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
 gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
+
+
+
+# Prepare data for step 2, look if this is still needed as 1 is finished
+#from pathlib import Path
+#gps_file = Path("data/raw/gps_data.csv")
+#gps_file.parent.mkdir(parents=True, exist_ok=True)
+#gps_csv.to_csv(gps_file, index=False)
+
