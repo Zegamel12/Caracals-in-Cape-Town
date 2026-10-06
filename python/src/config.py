@@ -23,14 +23,14 @@ step_names = [
 # Create step directories and data/temp directories
 for step in step_names:
     step_dir = base / "step_dirs" / step
-    (step_dir / "data").mkdir(exist_ok=True)
-    (step_dir / "temp").mkdir(exist_ok=True)
+    (step_dir / "data").mkdir(parents=True, exist_ok=True)
+    (step_dir / "temp").mkdir(parents=True, exist_ok=True)
 
     
 
 # Input/output files
 ROADS = (step_dir /"step03_osm" / "data" / "roads.gpkg")
-LANDUSE = step_dir /"step03_osm" / "data" / "landuse.gpkg")
+LANDUSE =(step_dir /"step03_osm" / "data" / "landuse.gpkg")
 
 # Coordinate reference systems
 GPS_CRS = "EPSG:4326"
