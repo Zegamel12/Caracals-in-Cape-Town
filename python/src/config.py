@@ -29,8 +29,8 @@ for step in step_names:
     
 
 # Input/output files
-ROADS = (step_dir /"step03)osm" / "data" / "roads.gpkg")
-
+ROADS = (step_dir /"step03_osm" / "data" / "roads.gpkg")
+LANDUSE = step_dir /"step03_osm" / "data" / "landuse.gpkg")
 
 # Coordinate reference systems
 GPS_CRS = "EPSG:4326"
