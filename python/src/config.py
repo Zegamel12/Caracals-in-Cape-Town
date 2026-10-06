@@ -29,12 +29,10 @@ for step in step_names:
     
 
 # Input/output files
-ROADS = (step_dir /"step03_osm" / "data" / "roads.gpkg")
-<<<<<<< HEAD
-LANDUSE =(step_dir /"step03_osm" / "data" / "landuse.gpkg")
-=======
-LANDUSE = (step_dir /"step03_osm" / "data" / "landuse.gpkg")
->>>>>>> 374f81923290d47efc21827e07d36e832a7c1e21
+ROADS = (base / "step_dirs" /"step03_osm" / "data" / "roads.gpkg")
+FEATURES = (base / "step_dirs" /"step03_osm" / "data" / "urban_boundaries.gpkg")
+TRAJECTORIES = (base / "step_dirs" /"step04_trajectories" / "data" / "s04A_GPS_burstID.gpkg")
+ANIMATION = (base / "step_dirs" /"step05_animation" / "data" / "GPS_animation.html")
 
 # Coordinate reference systems
 GPS_CRS = "EPSG:4326"

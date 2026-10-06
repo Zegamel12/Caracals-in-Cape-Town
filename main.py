@@ -5,7 +5,12 @@ import os
  #   os.makedirs(directory)
 
 
-from src.step01_download import download_gps_data
+from python.src.step03_osm import download_osm_data
+from python.src.step05_animation import create_animation_map
 
-# donwload gps data
-gps_data = download_gps_data()
+# Step03: donwload OSM data
+raods, features = download_osm_data(bbox)
+
+#  Step005: create animation map
+fig = create_animation_map()
+fig.show()

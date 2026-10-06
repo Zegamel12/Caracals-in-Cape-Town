@@ -1,6 +1,7 @@
-### --- Import road network ---
 
-# https://osmnx.readthedocs.io/en/stable/user-reference.html
+from config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
+# from python.src.step02_extent import extent
+from python.src.step01_download import gps_gdf
 
 import osmnx as ox
 import matplotlib.pyplot as plt
@@ -8,47 +9,62 @@ import geopandas as gpd
 import pyproj
 import rasterio #https://rasterio.readthedocs.io/en/stable/quickstart.html
 
-from config import ANALYSIS_CRS, LANDUSE, ROADS, GPS_CRS
-from python.src.step02_extent import extent
 
+def download_osm_data(bbox):
 
+    # https://osmnx.readthedocs.io/
+    # OSMnx user reference:
+    # https://osmnx.readthedocs.io/en/stable/user-reference.html
+    
+    # Boundary box (bbox) 
+    
+    # option 1 from step 2
+    # extent_wgs84= extent.to_crs(GPS_CRS)
+    # minx, ymin, xmax, ymax = extent_wgs84.total_bounds
+    # bbox= (minx, ymin, xmax, ymax)
 
-# def_get_road_network(bbox):
+    #option2 form step 1
+    bbox= gps_gdf.geometry.total_bounds
 
-# https://osmnx.readthedocs.io/
-# OSMnx user reference:
-# https://osmnx.readthedocs.io/en/stable/user-reference.html
+    # 1. Download road network
+    road_network = ox.graph.graph_from_bbox(
+        bbox=bbox, 
+        network_type='drive'
+        )
 
-# Example BBox [improve and move to config.py]
-extent_wgs84= extent.to_crs(GPS_CRS)
-minx, ymin, xmax, ymax = extent_wgs84.total_bounds
-bbox= (minx, ymin, xmax, ymax)
+    # convert the road network to GeoDataFrame
+    nodes, roads = ox.graph_to_gdfs(road_network)
 
-# Get road network
-road_network = ox.graph.graph_from_bbox(bbox=bbox, network_type='drive')
+    # Reproject roads to Analysis CRS
+    roads=roads.to_crs(ANALYSIS_CRS)
 
-# convert the road network to GeoDataFrame
-nodes, roads = ox.graph_to_gdfs(road_network)
+    # check raw data
+    print(f"Road features: {len(roads)}")
+    print(f"Road CRS: {roads.crs}")
+    roads.plot()
 
-# Set CRS of the OSM data
-roads=roads.to_crs(ANALYSIS_CRS)
+    # save the road networks
+    roads.to_file(ROADS, layer ="roads", driver="GPKG")
 
-# save the road networks
-roads.to_file(ROADS, layer ="roads", driver="GPKG")
+    # 2. Download landuse and leisure features
 
+    tags = {"landuse":["residential", "commercial", "industrial", "retail", "grass", "forest"],
+            "leisure":["park", "nature_reserve"]
+            }
 
-# def get_landuse(bbox):
-""" Download landuse datasets from OSM"""
+    features = ox.features_from_bbox(bbox=bbox, tags=tags )
 
-# Download landuse data from OSM 
-landuse = ox.features_from_bbox(bbox=bbox, tags={"landuse":Tue} )
+    # Reproject landuse to Anlaysis crs
+    features = features.to_crs(ANALYSIS_CRS)
 
-# Reproject landuse to Anlaysis crs
-landuse = landuse.to_crs(ANALYSIS_CRS)
+    #check feature data
+    print(f"OSM features: {len(features)}")
+    print(f"OSM CRS: {features.crs}")
+    print("OSM columns: {features.columns}")
 
-# save landuse data
-landuse.to_file(LANDUSE, layer = "landuse", driver = "GPKG")
+    # save landuse data
+    features.to_file(FEATURES, layer ="urban_boundaries", driver = "GPKG")
 
-#return landuse, roads
+    return features, roads
 
 
