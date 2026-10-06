@@ -6,7 +6,7 @@ import io
 import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
 import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
-from config import GPS_CRS, password_movebank, username_movebank
+from config import ANALYSIS_CRS, GPS_CRS, password_movebank, username_movebank
 
 #  Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
 
@@ -44,7 +44,7 @@ gps_gdf = gpd.GeoDataFrame(gps_csv,
     crs=GPS_CRS)
 
 # Convert projection to UTM
-gps_gdf_utm = gps_gdf.to_crs("EPSG:32734")
+gps_gdf_utm = gps_gdf.to_crs(ANALYSIS_CRS)
 
 # Check plot
 gps_gdf_utm.plot()
