@@ -34,7 +34,7 @@ ROADS = (step_dir /"step03)osm" / "data" / "roads.gpkg")
 
 # Coordinate reference systems
 GPS_CRS = "EPSG:4326"
-ANALYSIS_CRS = "EPSG:xxxxx"
+ANALYSIS_CRS = "EPSG:32734"
 
 # Movebank
 MOVEbank_STUDY_ID = "1832666571"

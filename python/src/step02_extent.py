@@ -17,28 +17,28 @@ buffer_m = 1000
 ANALYSIS_CRS = "EPSG:32734"
 
 # Read the GPS-table 
-gps_data = pd.read_csv(gps_file)
+gps_csv = pd.read_csv(gps_file)
 
 # Convert cordinates to numerical data. 
-gps_data["location_long"] = pd.to_numeric(
-    gps_data["location_long"], errors="coerce"
+gps_csv["location_long"] = pd.to_numeric(
+    gps_csv["location_long"], errors="coerce"
 )
-gps_data["location_lat"] = pd.to_numeric(
-    gps_data["location_lat"], errors="coerce"
+gps_csv["location_lat"] = pd.to_numeric(
+    gps_csv["location_lat"], errors="coerce"
 )
-gps_data = gps_data.dropna(
+gps_csv = gps_csv.dropna(
     subset=["location_long", "location_lat"]
 ).copy()
 
-if gps_data.empty:
+if gps_csv.empty:
     raise ValueError("No GPS-cordinates found in CSV-file")
 
 # Make GPS points
 gps_points = gpd.GeoDataFrame(
-    gps_data,
+    gps_csv,
     geometry = gpd.points_from_xy(
-        gps_data["location_long"],
-        gps_data["location_lat"],
+        gps_csv["location_long"],
+        gps_csv["location_lat"],
     ),
     crs="EPSG:32734"
 )
