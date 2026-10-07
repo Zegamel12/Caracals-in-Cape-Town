@@ -9,7 +9,7 @@ ox.settings.log_console = True
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import pyproj
-import rasterio #https://rasterio.readthedocs.io/en/stable/quickstart.html
+# import rasterio #https://rasterio.readthedocs.io/en/stable/quickstart.html -> I think we dont have to use this, see project proposal ^Jerom
 from pathlib import Path
 
 def download_osm_data():
