@@ -1,7 +1,7 @@
 
 from config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
 # from python.src.step02_extent import extent
-from python.src.step01_download import gps_gdf
+from python.src.step01_download import gps_gdf # not buffered
 
 import osmnx as ox
 import matplotlib.pyplot as plt
@@ -21,10 +21,10 @@ def download_osm_data(bbox):
     # option 1 from step 2
     # extent_wgs84= extent.to_crs(GPS_CRS)
     # minx, ymin, xmax, ymax = extent_wgs84.total_bounds
-    # bbox= (minx, ymin, xmax, ymax)
+    # bbox= tuple(minx, ymin, xmax, ymax)
 
     #option2 form step 1
-    bbox= gps_gdf.geometry.total_bounds
+    bbox= (gps_gdf.geometry.total_bounds)
 
     # 1. Download road network
     road_network = ox.graph.graph_from_bbox(
@@ -61,6 +61,9 @@ def download_osm_data(bbox):
     print(f"OSM features: {len(features)}")
     print(f"OSM CRS: {features.crs}")
     print("OSM columns: {features.columns}")
+    
+    # Plot landuse
+    features.plot(column="landuse", legend = True)
 
     # save landuse data
     features.to_file(FEATURES, layer ="urban_boundaries", driver = "GPKG")
