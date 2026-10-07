@@ -1,6 +1,6 @@
 
 from python.src.config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
-from python.src.step02_extent import extent
+# from python.src.step02_extent import extent -> bracket for testing of main.py
 
 
 import osmnx as ox
@@ -80,4 +80,4 @@ def download_osm_data():
 
     return features, roads
 
-download_osm_data()
+# download_osm_data() -> bracket for testing of main.py
