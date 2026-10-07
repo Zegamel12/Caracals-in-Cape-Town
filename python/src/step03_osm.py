@@ -34,7 +34,7 @@ def download_osm_data():
     # option 1 from step 2
     # extent_wgs84= extent.to_crs(GPS_CRS)
     # minx, ymin, xmax, ymax = extent_wgs84.total_bounds
-    # bbox= (minx, ymin, xmax, ymax)
+    # bbox= tuple(minx, ymin, xmax, ymax)
 
     # 1. Download road network
     road_network = ox.graph.graph_from_bbox(
@@ -71,6 +71,9 @@ def download_osm_data():
     print(f"OSM features: {len(features)}")
     print(f"OSM CRS: {features.crs}")
     print("OSM columns: {features.columns}")
+    
+    # Plot landuse
+    features.plot(column="landuse", legend = True)
 
     # save landuse data
     features.to_file(FEATURES, layer ="urban_boundaries", driver = "GPKG")

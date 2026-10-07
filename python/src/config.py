@@ -27,7 +27,6 @@ for step in step_names:
     (step_dir / "temp").mkdir(parents=True, exist_ok=True)
 
     
-
 # Input/output files
 ROADS = (base / "python" / "step_dirs" /"step03_osm" / "data" / "roads.gpkg")
 FEATURES = (base / "python" / "step_dirs" /"step03_osm" / "data" / "urban_boundaries.gpkg")
