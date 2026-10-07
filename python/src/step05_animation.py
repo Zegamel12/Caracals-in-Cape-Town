@@ -35,7 +35,7 @@ def create_animation_map():
     
   # USE OpenStreetMapp as backgrround map
   fig.update_layout(
-    map_stye = "open-steet-map"
+    map_style = "open-street-map"
     )
     
   #  save GPS animation map 
