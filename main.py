@@ -18,4 +18,4 @@ fig.show()
 
 # Step06: calculate distance
 
-distance_data = calculate_distance()
+distance_counts = calculate_distance()
