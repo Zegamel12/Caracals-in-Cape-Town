@@ -1,9 +1,9 @@
-from config import ROADS
-from config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE
+
+from config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS
 import pandas as pd
 import geopandas as gpd
 
-def calculate_distance():
+#def calculate_distance():
     """ calculate distance between consecutive GPS movements. """
 
     # load Trajectores from step04 and road files from step03
@@ -16,7 +16,12 @@ def calculate_distance():
 
     # find the nearest road and calculate distance
     distance_data = gpd.sjoin_nearest(
-        trajectories_data, roads_data[["geometry"]],................) # to be updated
+        trajectories_data, roads_data[["geometry"]],how="left" ,distance_col="distance_m") # to be updated
+
+    # check how many GPS data dublicated
+    # https://pandas.pydata.org/docs/reference/api/pandas.Index.duplicated.html
+    total_duplicated = distance_data.index.duplicated().sum())
+    print(total_duplicated)
 
     # 
         
@@ -25,4 +30,4 @@ def calculate_distance():
 
 
 
-    return distance_data
+    #return distance_data

@@ -22,18 +22,18 @@ step_names = [
 
 # Create step directories and data/temp directories
 for step in step_names:
-    step_dir = base / "step_dirs" / step
+    step_dir = base / "python" / "step_dirs" / step
     (step_dir / "data").mkdir(parents=True, exist_ok=True)
     (step_dir / "temp").mkdir(parents=True, exist_ok=True)
 
     
 
 # Input/output files
-ROADS = (base / "step_dirs" /"step03_osm" / "data" / "roads.gpkg")
-FEATURES = (base / "step_dirs" /"step03_osm" / "data" / "urban_boundaries.gpkg")
-TRAJECTORIES = (base / "step_dirs" /"step04_trajectories" / "data" / "s04A_GPS_burstID.gpkg")
-ANIMATION = (base / "step_dirs" /"step05_animation" / "data" / "animation.html")
-DISTANCE = (base / "step_dirs" /"step05_animation" / "data" / "distance.gpkg")
+ROADS = (base / "python" / "step_dirs" /"step03_osm" / "data" / "roads.gpkg")
+FEATURES = (base / "python" / "step_dirs" /"step03_osm" / "data" / "urban_boundaries.gpkg")
+TRAJECTORIES = (base / "python" / "step_dirs" /"step04_trajectories" / "data" / "s04A_GPS_burstID.gpkg")
+ANIMATION = (base / "python" / "step_dirs" /"step05_animation" / "data" / "animation.html")
+DISTANCE = (base / "python" / "step_dirs" /"step05_animation" / "data" / "distance.gpkg")
 
 # Coordinate reference systems
 GPS_CRS = "EPSG:4326"

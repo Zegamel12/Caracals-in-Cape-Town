@@ -6,7 +6,6 @@ import geopandas as gpd
 import pandas as pd
 import plotly.express as px #https://www.geeksforgeeks.org/data-visualization/using-plotly-for-interactive-data-visualization-in-python/
 
-
 def create_animation_map():
   """ Create an interactive animation GPS animal movements. """
   # https://plotly.com/python-api-reference/generated/plotly.express.scatter_map.html
@@ -42,5 +41,6 @@ def create_animation_map():
   #  save GPS animation map 
   # https://plotly.com/python/interactive-html-export/
   fig.write_html(ANIMATION)
+  
   return fig
   
