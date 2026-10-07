@@ -1,21 +1,25 @@
-import os
-#import functions.py as functions
+from tqdm import tqdm
 
-#if not os.path.exists(directory):
- #   os.makedirs(directory)
+from python.src import (
+    step01_download,
+    step02_extent,
+    step03_osm,
+    step04_trajectories,
+    step05_animation,
+    step06_distance,
+)
 
+# Create list for loading bar
+steps = [
+    ("Downloading GPS data...", step01_download.download_gps_data),
+    ("Creating extent...", step02_extent.create_extent),
+    ("Downloading osm data...", step03_osm.download_osm_data),
+    ("Creating bursts...", step04_trajectories.create_bursts),
+    ("Creating first animations...", step05_animation.create_animation_map),
+    ("Calculating distances...",step06_distance.calculate_distance),
+]
 
-from python.src.step03_osm import download_osm_data
-from python.src.step05_animation import create_animation_map
-from python.src.step06_distance import calculate_distance
-
-# Step03: donwload OSM data
-raods, features = download_osm_data(bbox)
-
-#  Step005: create animation map
-fig = create_animation_map()
-fig.show()
-
-# Step06: calculate distance
-
-distance_counts = calculate_distance()
+bar = tqdm(steps, unit="step") # Source: https://github.com/tqdm/tqdm?tab=readme-ov-file#custom-integration : iterable_based
+for name, step in bar:
+    bar.set_description(name)
+    step()

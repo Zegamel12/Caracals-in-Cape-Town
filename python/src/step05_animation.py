@@ -1,6 +1,6 @@
 # Import geopandas, movingpandas and plotly.express
 
-from config import GPS_CRS,TRAJECTORIES,ANIMATION
+from python.src.config import GPS_CRS,TRAJECTORIES,ANIMATION
 
 import geopandas as gpd
 import pandas as pd

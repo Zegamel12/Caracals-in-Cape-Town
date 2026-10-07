@@ -1,5 +1,5 @@
 
-from config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS
+from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
