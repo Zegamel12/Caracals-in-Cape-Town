@@ -22,13 +22,8 @@ step_names = [
 
 # Create step directories and data/temp directories
 for step in step_names:
-<<<<<<< HEAD
-    step_dir = base / "step_dirs" / step
-    (step_dir / "data").mkdir(parents= True, exist_ok=True)
-=======
     step_dir = base / "python" / "step_dirs" / step
     (step_dir / "data").mkdir(parents=True, exist_ok=True)
->>>>>>> 940147256ae15fba3ff43c30f9cc58b6fdade8a9
     (step_dir / "temp").mkdir(parents=True, exist_ok=True)
 
     
@@ -40,7 +35,7 @@ TRAJECTORIES = (base / "python" / "step_dirs" /"step04_trajectories" / "data" / 
 ANIMATION = (base / "python" / "step_dirs" /"step05_animation" / "data" / "animation.html")
 DISTANCE = (base / "python" / "step_dirs" /"step05_animation" / "data" / "distance.gpkg")
 
-# Coordinate reference systems
+# Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
 GPS_CRS = "EPSG:4326"
 ANALYSIS_CRS = "EPSG:32734"
 
