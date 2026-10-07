@@ -36,3 +36,6 @@ output
 # cache and pycache
 python/src/__pycache__
 cache/
+
+# snowflake.log
+snowflake.log

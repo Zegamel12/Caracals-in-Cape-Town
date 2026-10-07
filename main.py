@@ -9,7 +9,7 @@ from python.src import (
     step06_distance,
 )
 
-# Create list for loading bar
+# Create list for loading bar and runs
 steps = [
     ("Downloading GPS data...", step01_download.download_gps_data),
     ("Creating extent...", step02_extent.create_extent),
