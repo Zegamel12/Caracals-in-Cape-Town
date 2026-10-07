@@ -14,7 +14,7 @@ buffer_m = 1000
 # If file does not exists, run step01
 if not gps_file.exists():
     raise FileNotFoundError(
-        "GPS-file not found: first run step01"
+        "GPS-file not found: first run Step01"
     )
 # Read gps points from file
 gps_points = gpd.read_file(gps_file)
@@ -37,6 +37,6 @@ extent= gpd.GeoDataFrame(
     geometry=[buffered_extent],
     crs = ANALYSIS_CRS,
 )
-
+# save it
 extent_file.parent.mkdir(parents=True, exist_ok=True)
 extent.to_file(extent_file, driver= "GPKG")

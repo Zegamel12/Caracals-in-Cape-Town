@@ -1,16 +1,29 @@
 
 from config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
-# from python.src.step02_extent import extent
-from python.src.step01_download import gps_gdf
+from python.src.step02_extent import extent
+
 
 import osmnx as ox
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import pyproj
 import rasterio #https://rasterio.readthedocs.io/en/stable/quickstart.html
+from pathlib import Path
 
+def download_osm_data():
+    extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg"
+    )
+    if not extent_file.exists():
+        raise FileNotFoundError(
+            "Step02-file not found, first run Step02"
+        )
+    extent = gpd.read_file(extent_file)
+    if extent.empty:
+        raise ValueError("Step02-file does not contain area")
+    
+    extent_wgs84 = extent.to_crs(GPS_CRS)
+    bbox = tuple(extent_wgs84.total_bounds)
 
-def download_osm_data(bbox):
 
     # https://osmnx.readthedocs.io/
     # OSMnx user reference:
@@ -22,9 +35,6 @@ def download_osm_data(bbox):
     # extent_wgs84= extent.to_crs(GPS_CRS)
     # minx, ymin, xmax, ymax = extent_wgs84.total_bounds
     # bbox= (minx, ymin, xmax, ymax)
-
-    #option2 form step 1
-    bbox= gps_gdf.geometry.total_bounds
 
     # 1. Download road network
     road_network = ox.graph.graph_from_bbox(
@@ -67,4 +77,4 @@ def download_osm_data(bbox):
 
     return features, roads
 
-
+download_osm_data()
