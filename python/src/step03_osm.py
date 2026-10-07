@@ -1,5 +1,5 @@
 
-from config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
+from python.src.config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
 from python.src.step02_extent import extent
 
 

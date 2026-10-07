@@ -6,7 +6,7 @@ import io
 import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
 import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
-from config import ANALYSIS_CRS, GPS_CRS, password_movebank, username_movebank
+from python.src.config import ANALYSIS_CRS, GPS_CRS, password_movebank, username_movebank
 from pathlib import Path
 
 #  Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master

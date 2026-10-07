@@ -1,5 +1,5 @@
 # Import pandas, geopandas and pyproj
-from config import ANALYSIS_CRS
+from python.src.config import ANALYSIS_CRS
 import geopandas as gpd
 from pathlib import Path
 from shapely.geometry import box
