@@ -4,6 +4,8 @@ from python.src.config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
 
 
 import osmnx as ox
+ox.settings.log_console = True
+
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import pyproj
