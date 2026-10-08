@@ -15,7 +15,6 @@ def create_extent():
     # Extend area with a buffer zone in meters
     buffer_m = 200
 
-
     # If file does not exists, run step01
     if not gps_file.exists():
         raise FileNotFoundError(

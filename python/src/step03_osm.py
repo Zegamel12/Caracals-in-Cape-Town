@@ -76,7 +76,7 @@ def download_osm_data():
     #check feature data
     print(f"OSM features: {len(features)}")
     print(f"OSM CRS: {features.crs}")
-    print("OSM columns: {features.columns}")
+    print(f"OSM columns: {features.columns}")
     
     # Plot landuse
     features.plot(column="landuse", legend = True)
