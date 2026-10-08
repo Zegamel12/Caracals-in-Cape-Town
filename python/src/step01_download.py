@@ -1,16 +1,22 @@
 # Import
-import getpass
 import hashlib
 import io
+from pathlib import Path
 
 import geopandas as gpd  #https://www.geeksforgeeks.org/python/geopandas-tutorial/
 import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-guide/
 import requests
-from python.src.config import ANALYSIS_CRS, GPS_CRS, password_movebank, username_movebank
-from pathlib import Path
+
+from python.src.config import (
+    ANALYSIS_CRS,
+    GPS_CRS,
+    password_movebank,
+    username_movebank,
+)
+
 
 def download_gps_data():
-    #  Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
+    # Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
     # Movebank API accesspoint
     url = "https://www.movebank.org/movebank/service/direct-read"
 
@@ -53,5 +59,3 @@ def download_gps_data():
     # Write processed dataset to file
     # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
     gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
-
-

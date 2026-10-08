@@ -1,16 +1,19 @@
-# Import pandas, geopandas and pyproj
-from python.src.config import ANALYSIS_CRS
-import geopandas as gpd
+# Import 
 from pathlib import Path
+
+import geopandas as gpd
 from shapely.geometry import box
+
+from python.src.config import ANALYSIS_CRS
+
 
 def create_extent():
     # Get the right file you downloaded in step 1
     gps_file = Path("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
     extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg")
 
-# Extend area with a buffer zone in meters
-buffer_m = 200
+    # Extend area with a buffer zone in meters
+    buffer_m = 200
 
 
     # If file does not exists, run step01

@@ -1,16 +1,20 @@
-
-from python.src.config import ANALYSIS_CRS, FEATURES, ROADS, GPS_CRS
-# from python.src.step02_extent import extent -> bracket for testing of main.py
-
-
+# Import
 import osmnx as ox
+
+# from python.src.step02_extent import extent -> bracket for testing of main.py
+from python.src.config import (
+    ANALYSIS_CRS,
+    FEATURES,
+    GPS_CRS,
+    ROADS,
+)
+
 ox.settings.log_console = True
 
-import matplotlib.pyplot as plt
-import geopandas as gpd
-import pyproj
-# import rasterio #https://rasterio.readthedocs.io/en/stable/quickstart.html -> I think we dont have to use this, see project proposal ^Jerom
 from pathlib import Path
+
+import geopandas as gpd
+
 
 def download_osm_data():
     extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg"
