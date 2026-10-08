@@ -1,6 +1,6 @@
 # Import geopandas, movingpandas and plotly.express
 
-from config import GPS_CRS,TRAJECTORIES,ANIMATION
+from python.src.config import GPS_CRS,TRAJECTORIES,ANIMATION
 
 import geopandas as gpd
 import pandas as pd
@@ -35,7 +35,7 @@ def create_animation_map():
     
   # USE OpenStreetMapp as backgrround map
   fig.update_layout(
-    map_stye = "open-steet-map"
+    map_style = "open-street-map"
     )
     
   #  save GPS animation map 

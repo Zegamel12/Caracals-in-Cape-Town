@@ -32,3 +32,10 @@ output
 # pixi environments
 .pixi/*
 !.pixi/config.toml
+
+# cache and pycache
+python/src/__pycache__
+cache/
+
+# snowflake.log
+snowflake.log
