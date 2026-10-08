@@ -9,7 +9,7 @@ gps_file = Path("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
 extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg")
 
 # Extend area with a buffer zone in meters
-buffer_m = 1000
+buffer_m = 200
 
 # If file does not exists, run step01
 if not gps_file.exists():
