@@ -1,10 +1,11 @@
 # Import geopandas, movingpandas and plotly.express
 
-from python.src.config import GPS_CRS,TRAJECTORIES,ANIMATION
-
 import geopandas as gpd
 import pandas as pd
-import plotly.express as px #https://www.geeksforgeeks.org/data-visualization/using-plotly-for-interactive-data-visualization-in-python/
+import plotly.express as px  #https://www.geeksforgeeks.org/data-visualization/using-plotly-for-interactive-data-visualization-in-python/
+
+from python.src.config import ANIMATION, GPS_CRS, TRAJECTORIES
+
 
 def create_animation_map():
   """ Create an interactive animation GPS animal movements. """

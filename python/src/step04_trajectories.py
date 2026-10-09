@@ -3,6 +3,7 @@
 
 # Main processing workflow from: https://wec.wur.nl/dse/33-ts3.html, https://wec.wur.nl/dse/31-ts1.html 
 def create_bursts():
+    """ Create bursts of continous tracking. """
     # Import
     import geopandas as gpd # https://geopandas.org/en/stable/docs/user_guide.html
     import pathlib # https://docs.python.org/3/library/pathlib.html#
