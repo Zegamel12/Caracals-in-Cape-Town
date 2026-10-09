@@ -1,3 +1,9 @@
+# sources 
+#https://movingpandas.readthedocs.io/en/main/api/trajectorycollection.html
+#https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.add_speed.html
+#https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
+#https://movingpandas.readthedocs.io/en/main/api/trajectory.html
+
 # Import movingpandas
 import movingpandas as mpd
 import geopandas as gpd
