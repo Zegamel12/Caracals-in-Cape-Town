@@ -8,6 +8,7 @@ from python.src.config import ANALYSIS_CRS
 
 
 def create_extent():
+    """ Create an extent based on the gps data points. """
     # Get the right file you downloaded in step 1
     gps_file = Path("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
     extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg")
@@ -44,3 +45,6 @@ def create_extent():
     # save it
     extent_file.parent.mkdir(parents=True, exist_ok=True)
     extent.to_file(extent_file, driver= "GPKG")
+
+    # Clean workspace
+    del buffer_m

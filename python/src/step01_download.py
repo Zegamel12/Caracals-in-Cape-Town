@@ -16,6 +16,7 @@ from python.src.config import (
 
 
 def download_gps_data():
+    """ Retrieve gps dataset from Movebank. """
     # Movebak API explanation: https://github.com/movebank/movebank-api-doc/tree/master
     # Movebank API accesspoint
     url = "https://www.movebank.org/movebank/service/direct-read"
@@ -59,3 +60,6 @@ def download_gps_data():
     # Write processed dataset to file
     # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
     gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
+
+    # Clean workspace [add more]
+    del url, params
