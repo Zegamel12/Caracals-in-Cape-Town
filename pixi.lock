@@ -41,6 +41,7 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/cairo-1.18.6-h3c89d7e_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/charset-normalizer-3.5.2-h1114479_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/contourpy-1.4.0-py314h5383ef5_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/cykhash-2.0.1-py314ha160325_3.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/cyrus-sasl-2.1.28-hac629b4_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/dbus-1.16.2-he8c428d_2.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/double-conversion-3.4.0-hecca717_0.conda
@@ -178,8 +179,10 @@ environments:
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyarrow-core-24.0.0-py314h969be7f_0_cpu.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyogrio-0.13.0-py314hab130c5_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyproj-3.8.0-py314hf1f854a_1.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/pyrosm-0.15.0-py314hc75f4c6_0.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyside6-6.11.2-py314h574d94f_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/python-3.14.7-hcd007b5_106_cp314.conda
+      - conda: https://conda.anaconda.org/conda-forge/linux-64/python-rapidjson-1.25-py314hc75f4c6_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/pyyaml-6.0.3-py314h67df5f8_1.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/qhull-2020.2-h434a139_5.conda
       - conda: https://conda.anaconda.org/conda-forge/linux-64/qt6-main-6.11.2-pl5321h9df5c37_0.conda
@@ -789,6 +792,20 @@ packages:
   run_exports: {}
   size: 331601
   timestamp: 1789746783338
+- conda: https://conda.anaconda.org/conda-forge/linux-64/cykhash-2.0.1-py314ha160325_3.conda
+  sha256: c08d8a397b58e622d1b5e925874e290ff3840b90e32ad01ad47dfbefa163c263
+  md5: 85ab8059cb37f89b4560d476517ca729
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - libgcc >=14
+  - libstdcxx >=14
+  - python >=3.14,<3.15.0a0
+  - python_abi 3.14.* *_cp314
+  license: MIT
+  license_family: MIT
+  run_exports: {}
+  size: 450947
+  timestamp: 1762165758889
 - conda: https://conda.anaconda.org/conda-forge/linux-64/cyrus-sasl-2.1.28-hac629b4_1.conda
   sha256: 7684da83306bb69686c0506fb09aa7074e1a55ade50c3a879e4e5df6eebb1009
   md5: af491aae930edc096b58466c51c4126c
@@ -3011,6 +3028,27 @@ packages:
   run_exports: {}
   size: 609350
   timestamp: 1789133202292
+- conda: https://conda.anaconda.org/conda-forge/linux-64/pyrosm-0.15.0-py314hc75f4c6_0.conda
+  sha256: 073cec0013cf9fea32af652837cb1f4f0bf3a0107b0ca502f5d918c746e117ad
+  md5: 8b987f4c9f34b9668a0a430134c49f89
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - certifi
+  - cykhash >=2
+  - geopandas >=0.12.0
+  - libgcc >=15
+  - libstdcxx >=15
+  - protobuf >=6.33.5
+  - python >=3.14,<3.15.0a0
+  - python-rapidjson
+  - python_abi 3.14.* *_cp314
+  - setuptools >=18.0
+  - shapely >=2.1
+  license: MIT
+  license_family: MIT
+  run_exports: {}
+  size: 3946670
+  timestamp: 1790934125483
 - conda: https://conda.anaconda.org/conda-forge/linux-64/pyside6-6.11.2-py314h574d94f_1.conda
   sha256: 1c2614b5939edd2626e0fa466de620421cbf896effffa1b69b0eb69a5b345b91
   md5: 27dc92eae9a0bdab0d731f4953860c08
@@ -3068,6 +3106,20 @@ packages:
   size: 26484459
   timestamp: 1788383955577
   python_site_packages_path: lib/python3.14/site-packages
+- conda: https://conda.anaconda.org/conda-forge/linux-64/python-rapidjson-1.25-py314hc75f4c6_1.conda
+  sha256: 8111f3bce34f5802bda437cc52ee1c650948033f3c5c728047f40331ebcef602
+  md5: 2304e27b0ed86add0d9fe5a04ee1dc29
+  depends:
+  - __glibc >=2.17,<3.0.a0
+  - libgcc >=15
+  - libstdcxx >=15
+  - python >=3.14,<3.15.0a0
+  - python_abi 3.14.* *_cp314
+  license: MIT
+  license_family: MIT
+  run_exports: {}
+  size: 226729
+  timestamp: 1789364983288
 - conda: https://conda.anaconda.org/conda-forge/linux-64/pyyaml-6.0.3-py314h67df5f8_1.conda
   sha256: b318fb070c7a1f89980ef124b80a0b5ccf3928143708a85e0053cde0169c699d
   md5: 2035f68f96be30dc60a5dfd7452c7941
