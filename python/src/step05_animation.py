@@ -20,7 +20,6 @@ import plotly.express as px
 from python.src.config import ANIMATION, GPS_CRS, TRAJECTORIES
 
 
-
 def create_animation_map():
   """ Create an interactive animation GPS animal movements. 
   frame_freq: one frame per "h" (hour), "D" (day), "W" (week) or "M" (month).
@@ -48,9 +47,10 @@ def create_animation_map():
     animation_group="individual_local_identifier",
     color="individual_local_identifier",
     hover_name="individual_local_identifier",
+    center= {"lat": -34.1, "lon": 18.4},
     zoom=10,
     height=700,
-    map_style="carto-positron",
+    map_style="open-street-map",
     title="Caracal movements over time",
   )
     
@@ -58,7 +58,9 @@ def create_animation_map():
   
   #  5. save the animated map as HTML file 
   # https://plotly.com/python/interactive-html-export/
-  fig.write_html(ANIMATION, include_plotlyjs="cdn", auto_play=False)
+  fig.write_html(ANIMATION, include_plotlyjs=True, auto_play=False)
+
+  fig.show()
   
   return fig
   
