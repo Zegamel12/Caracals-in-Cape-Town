@@ -36,7 +36,17 @@ if __name__ == "__main__":
     
     # Save to figures dir, defined in config
     fig.savefig(FIGURES / "s09_gps_points_per_caracal.png", dpi=150)
-    
+
     plt.show()
 
+
+    ### Plotly S: https://plotly.com/python/box-plots/
+    fig_px = px.box(
+        gps,
+        x="individual_local_identifier",
+        y="distance_m",
+        labels={"individual_local_identifier": "Caracal", "distance_m": "Distance to nearest road (m)"},
+        title="Distance to nearest road per caracal",
+    )
+    fig_px.show()
     
