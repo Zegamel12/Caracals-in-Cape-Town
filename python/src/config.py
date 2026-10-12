@@ -36,11 +36,11 @@ TRAJECTORIES = (base / "python" / "step_dirs" /"step04_trajectories" / "data" / 
 ANIMATION = (base / "python" / "step_dirs" /"step05_animation" / "data" / "s05a_animation.html")
 DISTANCE = (base / "python" / "step_dirs" /"step06_distance" / "data" / "s06a_distance.gpkg")
 SPEED = (base / "python" / "step_dirs" / "step07_speed" / "data" / "s07a_speed.gpkg")
-LANDSCAPE_OBSERVATIONS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "landscape_observations.gpkg")
-LANDSCAPE_STATISTICS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "landscape_statistics.csv")
-OLS_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "OLS_regression.txt")
-SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_vs_road_distance.png")
-SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_by_landscape.png")
+LANDSCAPE_OBSERVATIONS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11a_landscape_observations.gpkg")
+LANDSCAPE_STATISTICS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11b_landscape_statistics.csv")
+OLS_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11c_OLS_regression.txt")
+SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11d_speed_vs_road_distance.png")
+SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11e_speed_by_landscape.png")
 FIGURES = (base / "python" / "output" / "figures")
 
 # Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
