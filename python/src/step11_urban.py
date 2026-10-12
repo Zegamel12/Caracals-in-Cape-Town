@@ -1,4 +1,4 @@
-""" Step11 : Compare animal movement across classifies landscape and model it.
+""" Step11 : Compare animal movement across classified landscape and model it.
 urban vs wildland """
 
 # Refrences:
@@ -164,7 +164,9 @@ def compare_urban_wildland():
     plt.show()
 
 
-
+    ######################################################
+    # If not done in previos steps
+    #####################################################
     # 8. Prepare data for regression
     model_data = trajectories_join.dropna(
         subset=["speed_kmh", "distance_m", "osm_class"]
@@ -187,7 +189,8 @@ def compare_urban_wildland():
     # 10.  Display model results
     print("\nOLS regression results:")
     print(model.summary())
-
+    ##################################################
+    
    # 11. save the required outputs
 
     #  Save landscape-classified GPS observations.
