@@ -10,17 +10,19 @@ import geopandas as gpd
 import pandas as pd
 from python.src.config import ANALYSIS_CRS, SPEED, TRAJECTORIES
 
-# Read input and check collumns
-gps = gpd.read_file(TRAJECTORIES)
-required = [
-    "individual_local_identifier",
-    "burst_id",
-    "timestamp_datetime",
-    "geometry",
-]
-missing= [column for column in required if column not in gps.columns]
-if missing:
-    raise ValueError(f"Missing columns in the trajectory data: {missing}")
+def calculate_speed()
+    # Read input and check collumns
+    gps = gpd.read_file(TRAJECTORIES)
+    required = [
+        "individual_local_identifier",
+        "burst_id",
+        "timestamp_datetime",
+        "geometry",
+    ]
+    missing= [column for column in required if column not in gps.columns]
+    if missing:
+        raise ValueError(f"Missing columns in the trajectory data: {missing}")
+
 
 # Check cordinates and timestamps
 if gps.crs is None:
@@ -31,30 +33,31 @@ gps["timestamp_datetime"] = (pd.to_datetime(
 )
 gps = gps.to_crs(ANALYSIS_CRS)
 
-# Make points in chronological order
-gps= gps.sort_values(["individual_local_identifier", "burst_id", "timestamp_datetime"]
-).copy()
 
-# Give every animal their own burst_id
-gps["trajectory_id"] = gps.groupby(
-    ["individual_local_identifier", "burst_id"],
-    sort= False,
-).ngroup()
+    # Make points in chronological order
+    gps= gps.sort_values(["individual_local_identifier", "burst_id", "timestamp_datetime"]
+    ).copy()
 
-# Make trajectory of GeoDataFrame and calculate speed
-TRAJECTORIES= mpd.TrajectoryCollection(
-    gps,
-    traj_id_col="trajectory_id",
-    t= "timestamp_datetime",
-)
-TRAJECTORIES.add_speed(
-    name= "speed_kmh",
-    units=("km", "h"),
-)
+    # Give every animal their own burst_id
+    gps["trajectory_id"] = gps.groupby(
+        ["individual_local_identifier", "burst_id"],
+        sort= False,
+    ).ngroup()
 
-# Save the results
-speed_data = TRAJECTORIES.to_point_gdf().reset_index()
-speed_data.to_file(SPEED, layer="speed", driver="GPKG")
+    # Make trajectory of GeoDataFrame and calculate speed
+    TRAJECTORIES= mpd.TrajectoryCollection(
+        gps,
+        traj_id_col="trajectory_id",
+        t= "timestamp_datetime",
+    )
+    TRAJECTORIES.add_speed(
+        name= "speed_kmh",
+        units=("km", "h"),
+    )
+
+    # Save the results
+    speed_data = TRAJECTORIES.to_point_gdf().reset_index()
+    speed_data.to_file(SPEED, layer="speed", driver="GPKG")
 
 
 

@@ -1,8 +1,8 @@
-
-from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+
+from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS, FIGURES
 
 
 def calculate_distance():
@@ -47,12 +47,17 @@ def calculate_distance():
 
     # Visualise number GPS counts per class
     fig, ax = plt.subplots(figsize=(9,6))
-    ax.bar(distance_counts.index, distance_counts.values)
+    bars = ax.bar(distance_counts.index, distance_counts.values) 
+    ax.bar_label(bars,labels= [f"{int(value):,}" for value in distance_counts.values], padding = 3 ) #https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar_label.html
     ax.set_xlabel("Distance to nearest road", fontsize=12)
     ax.set_ylabel("Number of GPS points", fontsize=12)
     ax.set_title("GPS points to the nearest road", fontsize=14)
     ax.tick_params(axis = "x", rotation = 45)
     plt.tight_layout()
-    plt.show()
+
+    # Save to figures dir
+    fig.savefig(FIGURES / "s06a_distance_classes.png", dpi=150)
+
+    plt.close()
 
     return distance_counts

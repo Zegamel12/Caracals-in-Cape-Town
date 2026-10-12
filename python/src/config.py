@@ -28,12 +28,20 @@ for step in step_names:
 
     
 # Input/output files
-ROADS = (base / "python" / "step_dirs" /"step03_osm" / "data" / "roads.gpkg")
-FEATURES = (base / "python" / "step_dirs" /"step03_osm" / "data" / "urban_boundaries.gpkg")
-TRAJECTORIES = (base / "python" / "step_dirs" /"step04_trajectories" / "data" / "s04A_GPS_burstID.gpkg")
-ANIMATION = (base / "python" / "step_dirs" /"step05_animation" / "data" / "animation.html")
-DISTANCE = (base / "python" / "step_dirs" /"step05_animation" / "data" / "distance.gpkg")
+GPS_DATA = (base / "python" / "step_dirs" / "step01_download" / "data" / "s01a_GPS_data.gpkg")
+EXTENT_FILE = (base / "python" / "step_dirs" / "step02_extent" / "data" / "s02a_gps_extent.gpkg")
+ROADS = (base / "python" / "step_dirs" /"step03_osm" / "data" / "s03a_roads.gpkg")
+FEATURES = (base / "python" / "step_dirs" /"step03_osm" / "data" / "s03b_landuse_classes.gpkg")
+TRAJECTORIES = (base / "python" / "step_dirs" /"step04_trajectories" / "data" / "s04a_GPS_burstID.gpkg")
+ANIMATION = (base / "python" / "step_dirs" /"step05_animation" / "data" / "s05a_animation.html")
+DISTANCE = (base / "python" / "step_dirs" /"step06_distance" / "data" / "s06a_distance.gpkg")
 SPEED = (base / "python" / "step_dirs" / "step07_speed" / "data" / "s07a_speed.gpkg")
+LANDSCAPE_OBSERVATIONS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "landscape_observations.gpkg")
+LANDSCAPE_STATISTICS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "landscape_statistics.csv")
+OLS_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "OLS_regression.txt")
+SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_vs_road_distance.png")
+SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_by_landscape.png")
+FIGURES = (base / "python" / "output" / "figures")
 
 # Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
 GPS_CRS = "EPSG:4326"
