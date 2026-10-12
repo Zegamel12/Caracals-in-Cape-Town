@@ -8,6 +8,7 @@ import pandas as pd  #https://www.geeksforgeeks.org/pandas/pandas-step-by-step-g
 import requests
 
 from python.src.config import (
+    GPS_DATA,
     ANALYSIS_CRS,
     GPS_CRS,
     password_movebank,
@@ -59,7 +60,7 @@ def download_gps_data():
 
     # Write processed dataset to file
     # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
-    gps_gdf_utm.to_file("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg")
+    gps_gdf_utm.to_file(GPS_DATA)
 
     # Clean workspace [add more]
     del url, params

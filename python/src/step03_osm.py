@@ -24,8 +24,6 @@
 
 # Import
 
-from pathlib import Path
-
 import osmnx as ox
 import geopandas as gpd
 import numpy as np
@@ -42,6 +40,7 @@ from python.src.config import (
     GPS_CRS,
     ROADS,
     FIGURES,
+    EXTENT_FILE,
 )
 
 ox.settings.log_console = True
@@ -51,7 +50,7 @@ def download_osm_data():
     """ Download OSM roads and landuse for step02 extent. """
     
     # 1.  Read the existing step02 buffered extent and define OSM tags 
-    extent_file = Path("python/step_dirs/step02_extent/data/s02A_gps_extent.gpkg")
+    extent_file = EXTENT_FILE
 
     if not extent_file.exists():
         raise FileNotFoundError(f"{extent_file} not found, first run Step02"
