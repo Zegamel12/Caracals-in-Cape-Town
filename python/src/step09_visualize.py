@@ -3,7 +3,7 @@ import geopandas as gpd
 import matplotlib.pyplot as plt  #https://www.geeksforgeeks.org/python/how-to-import-matplotlib-in-python/
 import plotly.express as px
 
-from python.src.config import DISTANCE
+from python.src.config import DISTANCE, FIGURES
 
 ### Temporary test block # s: https://docs.python.org/3/library/__main__.html
 if __name__ == "__main__":
@@ -27,11 +27,16 @@ if __name__ == "__main__":
     
     # X
     ax.set_xlabel("Caracal")
-    ax.tick_params(axis="x", rotation=-50)
+    ax.tick_params(axis="x", rotation=-50) #S: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.tick_params.html
 
     # Y
     ax.set_ylabel("Number of GPS points")
 
     plt.tight_layout()
-
+    
+    # Save to figures dir, defined in config
+    fig.savefig(FIGURES / "s09_gps_points_per_caracal.png", dpi=150)
+    
     plt.show()
+
+    
