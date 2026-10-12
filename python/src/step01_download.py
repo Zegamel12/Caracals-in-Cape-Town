@@ -55,7 +55,7 @@ def download_gps_data():
     gps_gdf_utm = gps_gdf.to_crs(ANALYSIS_CRS)
 
     # Check plot
-    gps_gdf_utm.plot()
+    # gps_gdf_utm.plot()
 
     # Write processed dataset to file
     # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file

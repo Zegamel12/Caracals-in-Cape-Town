@@ -80,7 +80,7 @@ def create_animation_map():
   print(f"Animation saved to: {ANIMATION.resolve()}")
 
 
-  fig.show()
+  # fig.show()
   
   return fig
   

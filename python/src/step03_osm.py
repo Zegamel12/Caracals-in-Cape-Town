@@ -41,6 +41,7 @@ from python.src.config import (
     FEATURES,
     GPS_CRS,
     ROADS,
+    FIGURES,
 )
 
 ox.settings.log_console = True
@@ -115,10 +116,10 @@ def download_osm_data():
             ]
 
    # check raw data
-    print(f"Road features: {len(roads)}")
-    print(f"Roads_cliped CRS: {roads.crs}")
-    print("roads columns:", list(roads.columns))
-    roads.plot()
+   # print(f"Road features: {len(roads)}")
+   # print(f"Roads_cliped CRS: {roads.crs}")
+   # print("roads columns:", list(roads.columns))
+   # roads.plot()
 
     # save the road networks
     roads.to_file(ROADS, layer ="roads", driver="GPKG")
@@ -141,11 +142,11 @@ def download_osm_data():
         raise ValueError("No polygon features were found.") 
 
 
-    #check feature data
-    print(f"OSM features: {len(features)}")
-    print(f"OSM CRS: {features.crs}")
-    print(f"OSM columns: {features.columns}")
-    features.plot()
+    # check feature data
+    # print(f"OSM features: {len(features)}")
+    # print(f"OSM CRS: {features.crs}")
+    # print(f"OSM columns: {features.columns}")
+    # features.plot()
 
     # read tag columns: using missing valuesif a column is absent.
     landuse = features.get("landuse", pd.Series(pd.NA, index=features.index, dtype="object"))
@@ -200,6 +201,7 @@ def download_osm_data():
     roads.plot(ax=ax, linewidth = 0.4)
     ax.set_title("OSM road network")
     ax.set_axis_off()
+    fig.savefig(FIGURES / "s03a_roads.png", dpi=150)
     plt.close(fig)
 
     # 2. plot landuse classes
@@ -207,6 +209,7 @@ def download_osm_data():
     features.plot(ax=ax, linewidth = 0.4)
     ax.set_title("OSM landuse classes")
     ax.set_axis_off()
+    fig.savefig(FIGURES / "s03b_landuse_classes.png", dpi=150)
     plt.close(fig)
     
     return features, roads

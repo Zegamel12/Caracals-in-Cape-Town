@@ -40,9 +40,7 @@ LANDSCAPE_STATISTICS = (base / "python" / "step_dirs" / "step11_urban" / "data" 
 OLS_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "OLS_regression.txt")
 SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_vs_road_distance.png")
 SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "speed_by_landscape.png")
-
-
-
+FIGURES = (base / "python" / "output" / "figures")
 
 # Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
 GPS_CRS = "EPSG:4326"

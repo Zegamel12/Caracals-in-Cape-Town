@@ -210,7 +210,7 @@ def compare_urban_wildland():
     fig.savefig(SPEED_LANDSCAPE_PLOT,dpi=300,bbox_inches="tight")
     print("Step 11 data and regression results saved.")
 
-    # Return results for reuse in later steps or notebook cells
+    # Return results 
     return {
         "urban": trajectories_m_urban,
         "wildland": trajectories_m_wild,
