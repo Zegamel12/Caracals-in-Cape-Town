@@ -41,6 +41,7 @@ from python.src.config import (
     FEATURES,
     GPS_CRS,
     ROADS,
+    FIGURES,
 )
 
 ox.settings.log_console = True
@@ -200,6 +201,7 @@ def download_osm_data():
     roads.plot(ax=ax, linewidth = 0.4)
     ax.set_title("OSM road network")
     ax.set_axis_off()
+    fig.savefig(FIGURES / "s03a_roads.png", dpi=150)
     plt.close(fig)
 
     # 2. plot landuse classes
@@ -207,6 +209,7 @@ def download_osm_data():
     features.plot(ax=ax, linewidth = 0.4)
     ax.set_title("OSM landuse classes")
     ax.set_axis_off()
+    fig.savefig(FIGURES / "s03b_landuse_classes.png", dpi=150)
     plt.close(fig)
     
     return features, roads
