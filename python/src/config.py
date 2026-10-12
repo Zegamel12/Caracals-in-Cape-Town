@@ -41,11 +41,23 @@ LANDSCAPE_STATISTICS = (base / "python" / "step_dirs" / "step11_urban" / "data" 
 OLS_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11c_OLS_regression.txt")
 SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11d_speed_vs_road_distance.png")
 SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11e_speed_by_landscape.png")
+MIXED_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11f_mixed_model.txt")
 FIGURES = (base / "python" / "output" / "figures")
 
 # Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
 GPS_CRS = "EPSG:4326"
 ANALYSIS_CRS = "EPSG:32734"
+
+#  Key Column names 
+ID_COL = "individual_local_identifier"
+TIME_COL = "timestamp_datetime"
+KEYS = [ID_COL, TIME_COL, "burst_id"]  
+
+# Study area and processing settings
+BUFFER_M = 200
+ALLOWED_INTERVALS = [1200, 7200, 10800]
+TIMEZONE = "Africa/Johannesburg"
+STUDY_LOCATION = {"name": "Cape Town", "region": "Western Cape", "lat": -33.9249, "lon": 18.4241}
 
 # Movebank
 MOVEbank_STUDY_ID = "1832666571"
