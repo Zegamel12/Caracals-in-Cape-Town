@@ -205,7 +205,10 @@ def download_osm_data():
 
     # 2. plot landuse classes
     fig,ax = plt.subplots(figsize=(10,6))
-    features.plot(ax=ax, linewidth = 0.4)
+    
+    # Source: https://geopandas.org/en/stable/docs/user_guide/mapping.html
+    features.plot(ax=ax, column="osm_class", legend=True, linewidth=0.4)
+    
     ax.set_title("OSM landuse classes")
     ax.set_axis_off()
     fig.savefig(FIGURES / "s03b_landuse_classes.png", dpi=150)
