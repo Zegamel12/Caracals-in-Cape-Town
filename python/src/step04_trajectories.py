@@ -2,15 +2,18 @@
 # import movingpandas as mpd
 
 # Main processing workflow from: https://wec.wur.nl/dse/33-ts3.html, https://wec.wur.nl/dse/31-ts1.html 
+
+
+ # Import
+import geopandas as gpd # https://geopandas.org/en/stable/docs/user_guide.html
+import pandas as pd # https://pandas.pydata.org/docs/user_guide/index.html
+
+from python.src.config import GPS_DATA, TRAJECTORIES
+
 def create_bursts():
     """ Create bursts of continous tracking. """
-    # Import
-    import geopandas as gpd # https://geopandas.org/en/stable/docs/user_guide.html
-    import pathlib # https://docs.python.org/3/library/pathlib.html#
-    import pandas as pd # https://pandas.pydata.org/docs/user_guide/index.html
-
     # Load gps dataset
-    gps_data = gpd.read_file(pathlib.Path("python/step_dirs/step01_download/data/s01A_GPS_data.gpkg"))
+    gps_data = gpd.read_file(GPS_DATA)
 
     # Add new column with timestamps as datetime insetad of string
     # https://pandas.pydata.org/docs/getting_started/intro_tutorials/05_add_columns.html
@@ -70,4 +73,4 @@ def create_bursts():
 
     # Write processed dataset to file
     # https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html#geopandas.GeoDataFrame.to_file
-    gps_data.to_file("python/step_dirs/step04_trajectories/data/s04A_GPS_burstID.gpkg")
+    gps_data.to_file(TRAJECTORIES)
