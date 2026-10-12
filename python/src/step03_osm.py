@@ -116,10 +116,10 @@ def download_osm_data():
             ]
 
    # check raw data
-    print(f"Road features: {len(roads)}")
-    print(f"Roads_cliped CRS: {roads.crs}")
-    print("roads columns:", list(roads.columns))
-    roads.plot()
+   # print(f"Road features: {len(roads)}")
+   # print(f"Roads_cliped CRS: {roads.crs}")
+   # print("roads columns:", list(roads.columns))
+   # roads.plot()
 
     # save the road networks
     roads.to_file(ROADS, layer ="roads", driver="GPKG")
@@ -142,11 +142,11 @@ def download_osm_data():
         raise ValueError("No polygon features were found.") 
 
 
-    #check feature data
-    print(f"OSM features: {len(features)}")
-    print(f"OSM CRS: {features.crs}")
-    print(f"OSM columns: {features.columns}")
-    features.plot()
+    # check feature data
+    # print(f"OSM features: {len(features)}")
+    # print(f"OSM CRS: {features.crs}")
+    # print(f"OSM columns: {features.columns}")
+    # features.plot()
 
     # read tag columns: using missing valuesif a column is absent.
     landuse = features.get("landuse", pd.Series(pd.NA, index=features.index, dtype="object"))
