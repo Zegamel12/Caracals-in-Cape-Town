@@ -25,8 +25,9 @@ if missing:
 # Check cordinates and timestamps
 if gps.crs is None:
     raise ValueError("Trajectory data has no CRS")
-gps["timestamp_datetime"] = pd.to_datetime(
-    gps["timestamp_datetime"], utc= True, errors= "raise"
+gps["timestamp_datetime"] = (pd.to_datetime(
+    gps["timestamp_datetime"], utc= True, errors= "raise")
+    .dt.tz_localize(None)
 )
 gps = gps.to_crs(ANALYSIS_CRS)
 
