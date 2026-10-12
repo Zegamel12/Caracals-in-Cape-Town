@@ -58,6 +58,6 @@ def calculate_distance():
     # Save to figures dir
     fig.savefig(FIGURES / "s06a_distance_classes.png", dpi=150)
 
-    plt.show()
+    plt.close()
 
     return distance_counts
