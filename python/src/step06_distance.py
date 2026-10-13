@@ -26,6 +26,17 @@ import matplotlib.pyplot as plt
 
 from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS, FIGURES
 
+BINS = [0, 10, 20, 50, 100, 500, float("inf")]
+LABELS = ["0-10 m", "10-20 m", "20-50 m", "50-100 m", "100-500 m", ">500 m"]
+
+
+def add_distance_class(data):
+    """ add a text column with the distance class)"""
+    # Include_lowest=True keeps points that lie exactly on a read(distance 0)
+    classes = pd.cut(data["distance_m"], bins=BINS, labels=LABELS, include_lowest=True)
+    # saveed as text : catagory columns can cause trouble inGeoPackage
+    data["distance_class"]= classes.astype(str)
+    return data
 
 def calculate_distance():
     """ calculate distance from GPS points to th enearest road. """
@@ -60,15 +71,9 @@ def calculate_distance():
     # Keep one nearest road result per GPS point and remove the index column created by sjoin
     distance_data = (distance_data[~distance_data.index.duplicated(keep="first")].drop(columns=["index_right"]))
 
-    # Classify distance to the nearest road, in metres
-    distance_data["distance_class"] = pd.cut(
-        distance_data["distance_m"],
-        bins=[0, 10, 20, 50, 100, 500,float("inf")],
-        labels=["0-10 m", "10-20 m", "20-50 m", "50-100 m", "100-500 m", ">500 m"]
-        )
-    
-    # save the distance dataset
-    distance_data.to_file(DISTANCE, layer = "distance", driver = "GPKG")
+    # Classify distance to the nearest road, in metres and save
+    distance_data= add_distance_class(distance_data)
+    distance_data.to_file(DISTANCE, layer ="s06a_distance", driver = "GPKG")
 
     # Count GPS observations per distance class
     distance_counts = (distance_data["distance_class"].value_counts().sort_index()) # per class
@@ -84,13 +89,15 @@ def calculate_distance():
         padding = 3 ) #https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar_label.html
     ax.set_xlabel("Distance to nearest road", fontsize=12)
     ax.set_ylabel("Number of GPS points", fontsize=12)
-    ax.set_title("GPS points to the nearest road", fontsize=14)
+    ax.set_title("GPS points by distance to the nearest road", fontsize=14)
     ax.tick_params(axis = "x", rotation = 45)
+    fig.text(0.99, 0.01, "GPS: Serieys et al. 2023; roads: (c) OpenStreetMap contributors (ODbL)",
+             ha="right", fontsize=7)
     plt.tight_layout()
 
     # Save to figures dir
     fig.savefig(FIGURES / "s06a_distance_classes.png", dpi=150)
 
-    plt.close()
+    plt.close(fig)
 
     return distance_counts
