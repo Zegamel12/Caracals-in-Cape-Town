@@ -1,4 +1,17 @@
+"""Step 07: speed (km/h) between consecutive GPS fixes within each burst.
+ 
+Input : step 06 points (they already hold distance_m, so the output holds speed AND distance)
+Output: SPEED GeoPackage and plots.
+"""
+
 # sources 
+# # MovingPandas TrajectoryCollection: https://movingpandas.readthedocs.io/en/main/api/trajectorycollection.html
+# MovingPandas add_speed:    https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.add_speed.html
+# MovingPandas to_point_gdf: https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
+# MovingPandas speed tutorial: https://github.com/movingpandas/movingpandas-examples/blob/main/1-tutorials/2-computing-speed.ipynb
+# Matplotlib hist:  https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.hist.html
+# Matplotlib boxplot: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.boxplot.html
+# GeoPandas read_file / to_crs / to_file: https://geopandas.org/en/stable/docs/reference/api/geopandas.html
 # https://movingpandas.readthedocs.io/en/main/api/trajectorycollection.html
 # https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.add_speed.html
 # https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
@@ -41,7 +54,7 @@ def calculate_speed():
     trajectory_collection= mpd.TrajectoryCollection(
         gps_data,
         traj_id_col="trajectory_id",
-        t= "timestamp_datetime",
+        t= TIME_COL,
     )
 
     # Calculate speed in km/h
