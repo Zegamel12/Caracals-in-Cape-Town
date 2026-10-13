@@ -10,7 +10,7 @@ import geopandas as gpd
 import pandas as pd
 from python.src.config import ANALYSIS_CRS, SPEED, TRAJECTORIES
 
-def calculate_speed()
+def calculate_speed():
     # Read input and check collumns
     gps = gpd.read_file(TRAJECTORIES)
     required = [
@@ -24,14 +24,14 @@ def calculate_speed()
         raise ValueError(f"Missing columns in the trajectory data: {missing}")
 
 
-# Check cordinates and timestamps
-if gps.crs is None:
-    raise ValueError("Trajectory data has no CRS")
-gps["timestamp_datetime"] = (pd.to_datetime(
-    gps["timestamp_datetime"], utc= True, errors= "raise")
-    .dt.tz_localize(None)
-)
-gps = gps.to_crs(ANALYSIS_CRS)
+    # Check cordinates and timestamps
+    if gps.crs is None:
+        raise ValueError("Trajectory data has no CRS")
+    gps["timestamp_datetime"] = (pd.to_datetime(
+        gps["timestamp_datetime"], utc= True, errors= "raise")
+        .dt.tz_localize(None)
+        )
+    gps = gps.to_crs(ANALYSIS_CRS)
 
 
     # Make points in chronological order
@@ -45,18 +45,19 @@ gps = gps.to_crs(ANALYSIS_CRS)
     ).ngroup()
 
     # Make trajectory of GeoDataFrame and calculate speed
-    TRAJECTORIES= mpd.TrajectoryCollection(
+    trajectory_collection= mpd.TrajectoryCollection(
         gps,
         traj_id_col="trajectory_id",
         t= "timestamp_datetime",
     )
-    TRAJECTORIES.add_speed(
+    # calculate speed in km/h
+    trajectory_collection.add_speed(
         name= "speed_kmh",
         units=("km", "h"),
     )
 
     # Save the results
-    speed_data = TRAJECTORIES.to_point_gdf().reset_index()
+    speed_data = trajectory_collection.to_point_gdf().reset_index() #https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
     speed_data.to_file(SPEED, layer="speed", driver="GPKG")
 
 
