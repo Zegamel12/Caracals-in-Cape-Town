@@ -1,3 +1,25 @@
+"""Step 06: distance from every GPS point to the nearest road.
+ 
+Input : step04 trajectories (points) and step03 roads
+Output: DISTANCE GeoPackage (points + distance_m + distance_class) and a bar chart.
+"""
+# References
+# - geopandas sjoin_nearest: https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin_nearest.html
+# - geopandas spatial joins: https://docs.geopandas.org/en/latest/gallery/spatial_joins.html
+# - geopandas read_file / to_crs / to_file:
+#       https://geopandas.org/en/stable/docs/reference/api/geopandas.read_file.html
+#       https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_crs.html
+#       https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html
+# - pandas Index.duplicated: https://pandas.pydata.org/docs/reference/api/pandas.Index.duplicated.html
+# - pandas.cut:              https://pandas.pydata.org/docs/reference/api/pandas.cut.html
+# - pandas value_counts / reindex:
+#       https://pandas.pydata.org/docs/reference/api/pandas.Series.value_counts.html
+#       https://pandas.pydata.org/docs/reference/api/pandas.Series.reindex.html
+# - matplotlib bar:          https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar.html
+# - matplotlib bar_label:    https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar_label.html
+# - matplotlib savefig:      https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
+
+
 import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
