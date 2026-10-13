@@ -194,7 +194,7 @@ def download_osm_data(force=False):
  
     # Source: https://geopandas.org/en/stable/docs/reference/api/geopandas.GeoDataFrame.to_file.html
     roads = extract_roads(osm)
-    roads.to_file(ROADS, layer="roads", driver="GPKG")
+    roads.to_file(ROADS, layer="s03a_roads", driver="GPKG")
  
     features = extract_landuse(osm)
     print(features["osm_class"].value_counts())
