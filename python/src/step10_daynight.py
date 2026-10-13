@@ -24,8 +24,14 @@ def day_night_analysis():
     # Load data from previous step
     gps_data = gpd.read_file(SPEED_DISTANCE_CSV)
 
-    # Define city
-    city = LocationInfo(STUDY_LOCATION)
+    # Define city source: https://sffjunkie.github.io/astral/
+    city = LocationInfo(
+        STUDY_LOCATION["name"],
+        STUDY_LOCATION["region"],
+        TIMEZONE,
+        STUDY_LOCATION["lat"],
+        STUDY_LOCATION["lon"],
+    )
 
     # Define timezone
     timezone = ZoneInfo(TIMEZONE)
@@ -128,7 +134,7 @@ def day_night_analysis():
     plt.ylabel("Speed (km/h)")
     plt.title("Speed vs. distance by day and night")
     plt.savefig(DAY_NIGHT_PLOT, dpi=300) # Save the plot
-    plt.show()
+    plt.close()
 
 if __name__ == "__main__":
     day_night_analysis()
