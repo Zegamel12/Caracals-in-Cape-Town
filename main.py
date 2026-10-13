@@ -33,8 +33,6 @@ steps = [
     ("Comparing urban vs wildlands",step11_urban.compare_urban_wildland),
 ]
 
-# ADD STEP 9, 11 AND 12 !!!!!!!!!!!!!!!!!
-# ("Visualizing...",step09_visualize.),
 
 
 bar = tqdm(steps, unit="step") # Source: https://github.com/tqdm/tqdm?tab=readme-ov-file#custom-integration : iterable_based
