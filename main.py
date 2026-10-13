@@ -9,6 +9,7 @@ from python.src import (
     step06_distance,
     step07_speed,
     step08_compare,
+    step09_visualize,
     step10_daynight,
     step11_urban,
 )
@@ -31,6 +32,7 @@ steps = [
     ("Comparing speed vs distance...",step08_compare.compare_speed_to_distance),
     ("Comparing influence day vs night...",step10_daynight.day_night_analysis),
     ("Comparing urban vs wildlands",step11_urban.compare_urban_wildland),
+    ("Creating (interactive) graphs..",step09_visualize.create_figures),
 ]
 
 
