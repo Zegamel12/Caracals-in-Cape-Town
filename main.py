@@ -10,12 +10,13 @@ from python.src import (
     step07_speed,
     step08_compare,
     step10_daynight,
+    step11_urban,
 )
 
-# ADD STEP 9, 11 AND 12 !!!!!!!!!!!!!!!!!
+# ADD STEP 9
 #    step09_visualize,
-#    step11_urban,
-#    step12_dashboard,
+
+
 
 
 # Create list for loading bar and runs
@@ -29,6 +30,7 @@ steps = [
     ("Calculating speed...",step07_speed.calculate_speed),
     ("Comparing speed vs distance...",step08_compare.compare_speed_to_distance),
     ("Comparing influence day vs night...",step10_daynight.day_night_analysis),
+    ("Comparing urban vs wildlands",step11_urban.compare_urban_wildland),
 ]
 
 # ADD STEP 9, 11 AND 12 !!!!!!!!!!!!!!!!!
