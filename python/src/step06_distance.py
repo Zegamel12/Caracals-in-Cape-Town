@@ -6,7 +6,7 @@ from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS, FIGUR
 
 
 def calculate_distance():
-    """ calculate distance from GPS points to th enearest road. """
+    """ calculate distance from GPS points to the nearest road. """
     # https://pandas.pydata.org/docs/reference/api/pandas.Index.duplicated.html
     # https://docs.geopandas.org/en/latest/gallery/spatial_joins.html
     # https://www.geeksforgeeks.org/python/pandas-cut-method-in-python/

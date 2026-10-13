@@ -1,248 +1,134 @@
-# Import pandas and statsmodels
+# Import
 from pathlib import Path
-import pandas as pd
-import statsmodels.api as sm #https://www.statsmodels.org/stable/index.html
-import statsmodels.formula.api as smf
 
 import geopandas as gpd
 import numpy as np
+import pandas as pd
+import statsmodels.api as sm  #https://www.statsmodels.org/stable/index.html
+import statsmodels.formula.api as smf
 
-from python.src.config import DISTANCE, SPEED
-def create_comparison()
-    # Prevent that sights of different animals get mixed up
+from python.src.config import DISTANCE, SPEED, SPEED_DISTANCE_CSV, SPEED_DISTANCE_MODEL
+
+
+def compare_speed_to_distance():
+    """Compare animal speed with distance to the nearest road.
+
+    Inputs:
+        DISTANCE: GPS observations containing distance-to-road values in column distance_m (step 6 output).
+        SPEED: GPS observations containing movement-speed values in column speed_kmh (step 7 output).
+
+    Outputs:
+        A CSV file containing the matched observations and a .txt file containing the mixed-effects model summary.
+    """
+
+    # Columns used to uniquely identify each GPS observation
     KEYS = [
         "individual_local_identifier",
-        "timestamp_datatime",
+        "timestamp_datetime",
         "burst_id",
-        ]
-
-
-# Prevent that sights of different animals get mixed up
-KEYS = [
-    "individual_local_identifier", 
-    "timestamp_datetime",
-    "burst_id",
-]
-
-# Analysation function and read files
-def compare_speed_to_distance():
+    ]
+    
+    # Read input data
     distance_data = gpd.read_file(DISTANCE)
     speed_data = gpd.read_file(SPEED)
 
-    # Make sure the right collums are present
-    required_distance = KEYS + ["distance_m"]
-    required_speed = KEYS + ["speed_kmh"]
-
-    missing_distance = [
-        column
-        for column in required_distance
-        if column not in distance_data.columns
-    ]
-
-    missing_speed= [
-        column 
-        for column in required_speed 
-        if column not in speed_data.columns
-    ]
-
-    # Step07 is still in process atm, this gives clear error if valuenames change
-    if missing_distance:
-        raise ValueError (
-            f"Missing from distance data: {missing_distance}"
-        )
-    if missing_speed:
-        raise ValueError (
-            f"Missing from speed data: {missing_speed}"
-        )
+    # Remove observations with missing matching keys
     distance_data = distance_data.dropna(subset=KEYS).copy()
-    speed_data= speed_data.dropna(subset=KEYS).copy()
+    speed_data = speed_data.dropna(subset=KEYS).copy()
 
-    # Make timestamps the same and check keys
+    # Ensure timestamps use the same datetime format
     distance_data["timestamp_datetime"] = pd.to_datetime(
-       distance_data["timestamp_datetime"], 
-       utc=True,
-       errors="raise",
-    )
-    speed_data["timestamp_datetime"] = pd.to_datetime(
-        speed_data["timestamp_datetime"], 
+        distance_data["timestamp_datetime"],
         utc=True,
-        errors= "raise",
-
- # I made the part above this. I dont have the brain capacity to check which one is better code so im just making the incomming change all comments
-    # Analysation function and read files
-   # def compare_speed_to_distance():
-    #    distance_data = gpd.read_file(DISTANCE)
-     #   speed_data = gpd.read_file(SPEED)
-
-    # Make sure the right collums are present
-    #required_distance = KEYS + ["distance_m"]
-  #  required_speed = KEYS + ["speed_kmh"]
-
- #   missing_distance = [
- #       column for column in required_distance
-  #      if column not in distance_data.columns
-   # ]
-    #missing_speed= [
- #        column for column in required_speed
- #       if column not in speed_data.columns
-  #  ]
-    # Step07 is still in process atm, this gives clear error if valuenames change
-   # if missing_distance:
-    #    raise ValueError (f"Missing from distance data:
-     #   {missing_distance}")
- #    if missing_speed:
- #       raise ValueError (f"Missing from speed data:
-  #      {missing_speed}")
-
-    # Make timestamps the same and check keys
-   # distance_data["timestamp_datetime"] = pd.to_datetime(
-    #    distance_data["timestamp_datetime"], utc=True
- #    )
- #   speed_data["timestamp_datetime"] = pd.to_datetime(
-  #      speed_data["timestamp_datetime"], utc=True
-   # )
-    #for name, data in [
- #        ("distance", distance_data),
- #       ("speed", speed_data),
-  #  ]:
-   # if data.duplicated(KEYS).any():
-    #    raise ValueError(f"Dublicate observation keys in {name} data")
-
-    # Pair only the needed data
- #    distance_table = distance_data[KEYS+["distance_m"]]
- #   speed_table= speed_data[KEYS+["speed_kmh"]]
-
-  #  analysis = distance_table.merge(
-   #     speed_table,
-    #    on=KEYS, 
- #        how="inner",
- #       validate= "one_to_one",
-  #  )
-   # print(f"Matched observations: {len(analysis)}")
-
-    # Take out missing or untrue values
- #    for column in ["distance_m", "speed_kmh"]:
- #       analysis[column] = pd.to_numeric(
-  #          analysis[column], errors= "coerce"
-   #     )
- #    valid_values = (
- #       np.isfinite(analysis["distance_m"])
-  #      & np.isfinite(analysis["speed_kmh"])
-   #     & (analysis["distance_m"] >= 0)
-    #    & (analysis["speed_kmh"] >= 0)
- #    )
- #   analysis = analysis.loc[valid_values].copy()
-
-  #  if analysis.empty:
-   #     raise ValueError("There are no valid matched observations")
-
-    #print(f"Valid observation: {len(analysis)}")
- #    print(
- #       "Animals:",
-  #      analysis["individual_local_identifier"].nunique(),
-
+        errors="raise",
     )
+
+    speed_data["timestamp_datetime"] = pd.to_datetime(
+        speed_data["timestamp_datetime"],
+        utc=True,
+        errors="raise",
+    )
+
+    # Check that each dataset contains only one row per observation key
     for name, data in [
         ("distance", distance_data),
         ("speed", speed_data),
     ]:
-     if data.duplicated(KEYS).any():
-        raise ValueError(
-            f"Dublicate observation keys in {name} data"
-        )
+        if data.duplicated(KEYS).any():
+            raise ValueError(
+                f"Duplicate observation keys in {name} data"
+            )
 
-    # Pair only the needed data
-    distance_table = distance_data[KEYS+["distance_m"]]
-    speed_table= speed_data[KEYS+["speed_kmh"]]
+    # Keep only the columns needed for the comparison
+    distance_table = distance_data[KEYS + ["distance_m"]]
+    speed_table = speed_data[KEYS + ["speed_kmh"]]
 
-    analysis = distance_table.merge(
+    # Match distance and speed observations
+    gps_dataset = distance_table.merge(
         speed_table,
-        on=KEYS, 
+        on=KEYS,
         how="inner",
-        validate= "one_to_one",
+        validate="one_to_one",
     )
-    print(f"Matched observations: {len(analysis)}")
 
-    if analysis.empty:
-        raise ValueError(
-            "There are no common observations in both files"
-        )
-
-    # Take out missing or untrue values
+    # Convert values to numeric and remove invalid observations
     for column in ["distance_m", "speed_kmh"]:
-        analysis[column] = pd.to_numeric(
-            analysis[column], 
-            errors= "coerce"
+        gps_dataset[column] = pd.to_numeric(
+            gps_dataset[column],
+            errors="coerce",
         )
+
     valid_values = (
-        np.isfinite(analysis["distance_m"])
-        & np.isfinite(analysis["speed_kmh"])
-        & (analysis["distance_m"] >= 0)
-        & (analysis["speed_kmh"] >= 0)
-    )
-    analysis = analysis.loc[valid_values].copy()
-
-    if analysis.empty:
-        raise ValueError(
-            "There are no valid matched observations"
-        )
-
-    print(f"Valid observation: {len(analysis)}")
-    print(
-        "Animals:",
-        analysis["individual_local_identifier"].nunique(),
+        np.isfinite(gps_dataset["distance_m"])
+        & np.isfinite(gps_dataset["speed_kmh"])
+        & (gps_dataset["distance_m"] >= 0)
+        & (gps_dataset["speed_kmh"] >= 0)
     )
 
-    # Scale the distance and apply a model
-    analysis["distance_100m"] = analysis ["distance_m"] /100
+    gps_dataset = gps_dataset.loc[valid_values].copy()
+
+    # Express distance in units of 100 metres
+    gps_dataset["distance_100m"] = gps_dataset["distance_m"] / 100
+
+    # Make sure all columns have the right data type
+    gps_dataset["speed_kmh"] = pd.to_numeric(
+    gps_dataset["speed_kmh"],
+    errors="coerce",
+    )
+
+    gps_dataset["distance_100m"] = pd.to_numeric(
+        gps_dataset["distance_100m"],
+        errors="coerce",
+    )
+
+    # Remove NAN
+    gps_dataset = gps_dataset.dropna(
+        subset=[
+            "speed_kmh",
+            "distance_100m",
+            "individual_local_identifier",
+        ]
+    ).copy()
+
+    # Fit a mixed-effects model with animal-specific grouping
     model = smf.mixedlm(
-        "speed_kmh ~distance_100m",
-        data=analysis,
-        groups= analysis ["individual_local_identifier"],
+        "speed_kmh ~ distance_100m",
+        data=gps_dataset,
+        groups=gps_dataset["individual_local_identifier"],
     )
+
+    # Running the model and printen the summarised results
     results = model.fit()
     print(results.summary())
 
-    # Save the paired data and model results
-    output_dir= Path("python/step_dirs/step08_compare/data")
-    output_dir.mkdir(parents=True, exist_ok=True)
+     # Save the updated dataset and model results
+    gps_dataset.to_csv(SPEED_DISTANCE_CSV, index=False)
 
-    analysis.to_csv(
-        output_dir / "s08b_speed_distance.csv",
-        index=False,
-    )
-    (output_dir/ "s08b_model_summary.txt").write_text(
+    SPEED_DISTANCE_MODEL.write_text(
         results.summary().as_text(),
-        encoding= "utf-8",
-        )
+        encoding="utf-8")
+
 
 
 if __name__ == "__main__":
     compare_speed_to_distance()
-
-
-
-    # Scale the distance and apply a model
-#    analysis["distance_100m"] = analysis ["distance_m"] /100
- #   model = smf.mixedlm(
-  #      "speed_kmh ~distance_100m",
-   #     data=analysis,
-    #    groups= analysis ["individual_local_identifier"],
-#    )
- #   results = model.fit()
-  #  print(results.summary())
-
-    # Save the paired data and model results
-#    output_dir= Path("python/step_dirs/step08_compare/data")
- #   analysis.to_cvs(
-  #      output_dir / "s08b_speed_distance.csv",
-   #     index=False,
-    #)
-#    (output_dir/ "s08b_model_summary.txt").write_text(
- #       results.summary().as_text(),
-  #      endocing= "utf-8",
-   #     )
-
-#    if __name__ == "__main__":
- #       compare_speed_to_distance()
-

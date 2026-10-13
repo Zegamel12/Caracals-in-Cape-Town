@@ -40,7 +40,7 @@ if __name__ == "__main__":
     plt.close()
 
 
-    ### Plotly S: https://plotly.com/python/box-plots/
+    ### Plotly Source: https://plotly.com/python/box-plots/
     fig_px = px.box(
         gps,
         x="individual_local_identifier",
@@ -49,7 +49,7 @@ if __name__ == "__main__":
         title="Distance to nearest road per caracal",
     )
 
-    # S: https://plotly.com/python/interactive-html-export/
+    # Source: https://plotly.com/python/interactive-html-export/
     fig_px.write_html(FIGURES / "s09b_distance_per_caracal.html")
 
     
