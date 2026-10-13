@@ -16,22 +16,29 @@ def calculate_distance():
     trajectories_data = gpd.read_file(TRAJECTORIES)
     roads_data = gpd.read_file(ROADS)
 
+    # Exclude GPS records without a usable location
+    trajectories_data=trajectories_data[trajectories_data.geometry.notna() & ~trajectories_data.geometry.is_empty].copy()
+
+    # Assign a unique ID to each remaining observation
+    trajectories_data = trajectories_data.reset_index(drop=True)
+    trajectories_data["observation_id"] = range(len(trajectories_data))
+
     # Reproject to a Analysis crs
     trajectories_data = trajectories_data.to_crs(ANALYSIS_CRS)
     roads_data = roads_data.to_crs(ANALYSIS_CRS)
 
-    # find the nearest road and calculate distance
+    # calculate the distance to the nearest road
     distance_data = gpd.sjoin_nearest(
         trajectories_data, roads_data[["geometry"]],how="left" ,distance_col="distance_m")
 
-    # check how many GPS indicies were created
+    # Multiple equidistant roads can return multiple rows for one GPS point.
     total_duplicated = distance_data.index.duplicated().sum()
     print(total_duplicated)
 
     # Keep one nearest road result per GPS point and remove the index column created by sjoin
     distance_data = (distance_data[~distance_data.index.duplicated(keep="first")].drop(columns=["index_right"]))
 
-    # Define distance classes in meter for visualisations 
+    # Classify distance to the nearest road, in metres
     distance_data["distance_class"] = pd.cut(
         distance_data["distance_m"],
         bins=[0, 10, 20, 50, 100, 500,float("inf")],
@@ -41,14 +48,18 @@ def calculate_distance():
     # save the distance dataset
     distance_data.to_file(DISTANCE, layer = "distance", driver = "GPKG")
 
-    # check results of distance classes
+    # Count GPS observations per distance class
     distance_counts = (distance_data["distance_class"].value_counts().sort_index()) # per class
     print(distance_counts)
 
-    # Visualise number GPS counts per class
+    # Plot GPS observations per distance class
     fig, ax = plt.subplots(figsize=(9,6))
     bars = ax.bar(distance_counts.index, distance_counts.values) 
-    ax.bar_label(bars,labels= [f"{int(value):,}" for value in distance_counts.values], padding = 3 ) #https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar_label.html
+
+    ax.bar_label(
+        bars,
+        labels= [f"{int(value):,}" for value in distance_counts.values], 
+        padding = 3 ) #https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.bar_label.html
     ax.set_xlabel("Distance to nearest road", fontsize=12)
     ax.set_ylabel("Number of GPS points", fontsize=12)
     ax.set_title("GPS points to the nearest road", fontsize=14)
