@@ -21,7 +21,7 @@ Output: SPEED GeoPackage and plots.
 import geopandas as gpd
 import movingpandas as mpd
 
-from python.src.config import SPEED, TRAJECTORIES
+from python.src.config import SPEED, TIME_COL, TRAJECTORIES
 
 
 def calculate_speed():
