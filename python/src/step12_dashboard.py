@@ -1,9 +1,16 @@
 # Import plotly and steamlit
 import plotly.express as px
 import streamlit as st 
+
+from python.src.config import (
+    ANIMATION, FIGURES, DELIVERABLES,
+    SPEED_DISTANCE_MODEL,
+    SPEED_DISTANCE_PLOT, SPEED_LANDSCAPE_PLOT, MIXED_RESULTS,
+    DAY_NIGHT_PLOT, DAY_NIGHT_MODEL,)
+
+### Dashboard to answer research questions
 # General source: https://www.geeksforgeeks.org/python/streamlit-introduction-and-setup/
 # General source: https://docs.streamlit.io/develop/api-reference/text/st.title
-from python.src.config import ANIMATION, FIGURES, DELIVERABLES
 
 # Source: https://docs.streamlit.io/develop/api-reference/configuration/st.set_page_config
 st.set_page_config(page_title="Caracals in Cape Town", layout="wide")
@@ -12,31 +19,115 @@ def home_page():
 
     # Title
     st.title("Caracals in Cape Town")
+
+    st.info("Main Research Question: 'To what extend does a medium-sized predator care about human activity?'")
+    
+    st.markdown(
+        "The visualisation will provide an overview of how the animals move through Cape Town (South-Africa) during periods within 2014 and 2017. "
+        "To answer the main research question this dashboard will first answer three sub-questions: "
+        "navigate through our project to end up with the final answer on the main research question at the end.")
+
     # Import title card animation map
     st.iframe(ANIMATION, height=800)
 
+    with st.expander("Boxplot: speed per distance class to the nearest road"):
+        st.image( 
+            FIGURES / "s09a_gps_points_per_caracal.png",
+            caption="",
+            alt="",)
+        
+        st.info(
+            "")
+
 def question_1_page():
     st.title("Q1: Speed and distance to roads")
-    st.image(FIGURES / "s13_q1_speed_vs_distance.png", caption="Speed vs distance to the nearest road")
-    st.iframe(FIGURES / "s09e_speed_vs_distance.html", height=800)
+    
+    # Info cards, Source: https://docs.streamlit.io/develop/api-reference/status/st.info
+    st.info("'Do caracals move at different speeds when they are close to roads compared with when they are farther from roads, potentially indicating a behavioural response to roads?'")
+    
+    with st.expander(""):
+        st.image( 
+            FIGURES / "s03a_roads.png",
+            caption="",
+            alt="",)
+    
+        
+        st.info("")    
+    
+    with st.expander(""):
+        st.image( 
+            FIGURES / "s13_q1_speed_vs_distance.png",
+            caption="",
+            alt="",)
+    
+        
+        st.info("")
+
+    with st.expander("Answer of Q1"):
+        st.success("")
 
 def question_2_page():
     st.title("Q2: Urban vs wildland")
-    st.image(FIGURES / "s03b_landuse_classes.png", caption="OSM land-use classes")
-    st.image(FIGURES / "s13_q2_urban_vs_wildland.png", caption="Urban vs wildland")
+    
+    st.info("'Does the relationship between movement, speed and distance to roads differ between urban and wildland-dominated areas?'")
+
+    with st.expander(""):
+        st.image( 
+            FIGURES / "s03b_landuse_classes.png",
+            caption="",
+            alt="",)
+        
+        st.info("")
+
+
+    with st.expander(""):
+        st.image( 
+            FIGURES / "s13_q2_urban_vs_wildland.png",
+            caption="",
+            alt="",)
+        
+        st.info("")
+
+
+    with st.expander("Answer of Q2"):
+        st.success("")
 
 def question_3_page():
     st.title("Q3: Day vs night")
-    st.image(FIGURES / "s13_q3_day_vs_night.png", caption="Day vs night")
+
+    st.info("'Does the relationship between movement speed and distance to roads differ between daytime and nighttime?'")
+    
+    with st.expander(""):
+        st.image( 
+            FIGURES / "s13_q3_day_vs_night.png",
+            caption="",
+            alt="",)
+        
+        st.info("")
+
+
+    with st.expander("Answer of Q3"):
+        st.success("")
+
+def end_page():
+
+    # Title
+    st.title("Caracals in Cape Town")
+
+    st.info("Main Research Question: 'To what extend does a medium-sized predator care about human activity?'")
+    
+    st.success(
+        "")
+
 
 # Navigation s: https://docs.streamlit.io/develop/api-reference/navigation/st.page for icons https://fonts.google.com/icons
 pg = st.navigation([
-    st.Page(home_page, title="Animal movements", icon=":material/map:", default=True),
-    st.Page(question_1_page, title="Q1 Speed vs distance", icon=":material/speed:"),
-    st.Page(question_2_page, title="Q2 Urban vs wildland", icon=":material/location_city:"),
-    st.Page(question_3_page, title="Q3 Day vs night", icon=":material/dark_mode:"), ])
+    st.Page(home_page, title="Start: Main Research Question", icon=":material/map:", default=True),
+    st.Page(question_1_page, title="Q1 Speed vs Distance", icon=":material/speed:"),
+    st.Page(question_2_page, title="Q2 Urban vs Wildland", icon=":material/location_city:"),
+    st.Page(question_3_page, title="Q3 Day vs Night", icon=":material/dark_mode:"),
+    st.Page(end_page, title="End: Answering Main Research Question", icon=":material/sports_score:"), ])
 pg.run()
 
-import streamlit as st #https://www.geeksforgeeks.org/python/streamlit-introduction-and-setup/
 
 
