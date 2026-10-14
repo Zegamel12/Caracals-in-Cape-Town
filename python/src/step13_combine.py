@@ -407,6 +407,7 @@ def figure_q4(data, results):
     ax2.set_xticks(range(len(groups)))
     ax2.set_xticklabels(list(groups))
     ax2.set_title("Mean distance (95% interval)")
+    ax2.set_ylim(bottom=0) # Source: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.set_ylim.html
     for ax in (ax1, ax2):
         ax.set_xlabel("Landscape and time of day")
         ax.set_ylabel("Distance to nearest road (m)")
