@@ -20,7 +20,7 @@ def home_page():
     # Title
     st.title("Caracals in Cape Town")
 
-    st.info("Main Research Question: 'To what extend does a medium-sized predator care about human activity?'")
+    st.info("Main Research Question: **'To what extend does a medium-sized predator care about human activity?'**")
     
     st.markdown(
         "The visualisation will provide an overview of how the animals move through Cape Town (South-Africa) during periods within 2014 and 2017. "
@@ -30,11 +30,10 @@ def home_page():
     # Import title card animation map
     st.iframe(ANIMATION, height=800)
 
-    with st.expander("Boxplot: speed per distance class to the nearest road"):
+    with st.expander("Amount of GPS points per caracal."):
         st.image( 
             FIGURES / "s09a_gps_points_per_caracal.png",
-            caption="",
-            alt="",)
+            caption="Amount of GPS points per caracal.",)
         
         st.info(
             "")
@@ -45,19 +44,19 @@ def question_1_page():
     # Info cards, Source: https://docs.streamlit.io/develop/api-reference/status/st.info
     st.info("'Do caracals move at different speeds when they are close to roads compared with when they are farther from roads, potentially indicating a behavioural response to roads?'")
     
-    with st.expander(""):
+    with st.expander("Road network within our study area."):
         st.image( 
             FIGURES / "s03a_roads.png",
-            caption="",
+            caption="Road network within our study area.",
             alt="",)
     
         
         st.info("")    
     
-    with st.expander(""):
+    with st.expander("Speed statistics per distance class."):
         st.image( 
             FIGURES / "s13_q1_speed_vs_distance.png",
-            caption="",
+            caption="Speed statistics per distance class.",
             alt="",)
     
         
@@ -71,19 +70,19 @@ def question_2_page():
     
     st.info("'Does the relationship between movement, speed and distance to roads differ between urban and wildland-dominated areas?'")
 
-    with st.expander(""):
+    with st.expander("Landuse classes within our study area."):
         st.image( 
             FIGURES / "s03b_landuse_classes.png",
-            caption="",
+            caption="Landuse classes within our study area.",
             alt="",)
         
         st.info("")
 
 
-    with st.expander(""):
+    with st.expander("Urban versus wildland."):
         st.image( 
             FIGURES / "s13_q2_urban_vs_wildland.png",
-            caption="",
+            caption="Urban versus wildland.",
             alt="",)
         
         st.info("")
@@ -97,10 +96,10 @@ def question_3_page():
 
     st.info("'Does the relationship between movement speed and distance to roads differ between daytime and nighttime?'")
     
-    with st.expander(""):
+    with st.expander("Influence of day and night time on movement."):
         st.image( 
             FIGURES / "s13_q3_day_vs_night.png",
-            caption="",
+            caption="Influence of day and night time on movement.",
             alt="",)
         
         st.info("")
@@ -114,10 +113,9 @@ def end_page():
     # Title
     st.title("Caracals in Cape Town")
 
-    st.info("Main Research Question: 'To what extend does a medium-sized predator care about human activity?'")
+    st.info("Main Research Question: **'To what extend does a medium-sized predator care about human activity?'**")
     
-    st.success(
-        "")
+    st.success("")
 
 
 # Navigation s: https://docs.streamlit.io/develop/api-reference/navigation/st.page for icons https://fonts.google.com/icons
