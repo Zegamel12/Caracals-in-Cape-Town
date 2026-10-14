@@ -1,6 +1,6 @@
 ## Geoscripting project repository.
 
-# Title:
+# Title: Caracal in Cape Town.
 # Team name and members: Gezellig_positive_koffie_zebra: Joep van Dongen, Silke Zeeuwen, Jerom den Rooijen, Kahsu Berihu Berhe 
 # Challenge number (or "own"): #5
 # Description, how to run/reproduce:
@@ -17,4 +17,4 @@ _... = semantic naming.
 
 In temp (temperarily) you put data that you need for processing but not for permanent use
 
-Instructions on how to run are available in headers of main.py.
+Instructions on how to run are available in headers of main.py. Sources are noted in line of scripts and AI log is included in project_info folder.
