@@ -53,12 +53,14 @@ def create_animation_map(frame_frq ="W", output = ANIMATION):
   # several fixes per animal share a frame, and plotly needs
   # Therefore, a unique row per group and frame to morph between frames.
   # Source: https://plotly.com/python-api-reference/generated/plotly.express.scatter_map.html
+  points = points.sort_values([ID_COL, "timestamp_datetime"])
 
-  fig = px.scatter_map(
+  fig = px.line_map(
     points, 
     lat="location_lat",
     lon="location_long",
     animation_frame="frame",
+    line_group=ID_COL,
     color=ID_COL,
     hover_name=ID_COL,
     center = {

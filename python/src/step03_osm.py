@@ -180,7 +180,7 @@ def download_osm_data(force=False):
     if not force and ROADS.exists() and FEATURES.exists():
         print("OSM data already downloaded, reading cached files.")
         return (gpd.read_file(FEATURES, layer="landuse_classes"),
-                gpd.read_file(ROADS, layer="roads"))
+                gpd.read_file(ROADS, layer="s03a_roads"))
  
     bbox = read_extent_bbox()
     print(f"OSM bounding box: {bbox}")
