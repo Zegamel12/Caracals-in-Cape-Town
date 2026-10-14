@@ -2,6 +2,7 @@
 Input : step04 trajectories (GeoPackage with one Point per GPS)
 output : an HTML file with a time enabled (plotly) -- open directory in a browser, or load into step12's dashboard.
 """
+
 # # References
 # - plotly acatter_map: https://plotly.com/python-api-reference/generated/plotly.express.scatter_map.html
 # - plotly animations :https://plotly.com/python/animations/
@@ -11,12 +12,12 @@ output : an HTML file with a time enabled (plotly) -- open directory in a browse
 # - plotly interactive : https://www.geeksforgeeks.org/data-visualization/using-plotly-for-interactive-data-visualization-in-python/
 # - pandas Period / to_period: https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html
 
+import time
 from pathlib import Path
-import time                
 
 import geopandas as gpd
 import pandas as pd
-import plotly.express as px  
+import plotly.express as px
 
 from python.src.config import ANIMATION, ID_COL, TRAJECTORIES
 
@@ -52,12 +53,14 @@ def create_animation_map(frame_frq ="W", output = ANIMATION):
   # several fixes per animal share a frame, and plotly needs
   # Therefore, a unique row per group and frame to morph between frames.
   # Source: https://plotly.com/python-api-reference/generated/plotly.express.scatter_map.html
+  points = points.sort_values([ID_COL, "timestamp_datetime"])
 
-  fig = px.scatter_map(
+  fig = px.line_map(
     points, 
     lat="location_lat",
     lon="location_long",
     animation_frame="frame",
+    line_group=ID_COL,
     color=ID_COL,
     hover_name=ID_COL,
     center = {
@@ -73,14 +76,13 @@ def create_animation_map(frame_frq ="W", output = ANIMATION):
     
   print(f"Plotly animation creation: {time.perf_counter() - start:.2f} seconds")
   
-  # 8. savand show the animated map as HTML file 
+  # 8. savE and show the animated map as HTML file 
   # https://plotly.com/python/interactive-html-export/
   # "cdn" keeps the HTML small; needs internet to view
   
   fig.write_html(output, include_plotlyjs=True, auto_play=False)
 
   print(f"Animation saved to: {Path(output).resolve()}")
-
 
   # fig.show()
   

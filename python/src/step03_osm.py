@@ -6,6 +6,7 @@
    Input : step02 extent (Geopackage)
    Output : roads (ROADS) and classified landuse polygones(FEATURES), both in ANLAYSIS_CRS
 """
+
 # References
 # - pyrosm reference:        https://pyrosm.readthedocs.io/en/stable/reference.html
 # - pyrosm get_data_by_bbox: https://pyrosm.readthedocs.io/en/latest/api/pyrosm.get_data_by_bbox.html
@@ -30,24 +31,21 @@
 
 #import osmnx as ox
 import geopandas as gpd
+import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-import matplotlib.pyplot as plt
 from matplotlib.lines import Line2D
 from pyrosm import OSM, get_data_by_bbox
 
-
 # from python.src.step02_extent import extent -> bracket for testing of main.py
-
 from python.src.config import (
     ANALYSIS_CRS,
+    EXTENT_FILE,
     FEATURES,
+    FIGURES,
     GPS_CRS,
     ROADS,
-    FIGURES,
-    EXTENT_FILE,
 )
-
 
 SOURCE_DATA = "Data: © OpenStreetMap contributors (ODbL), downloaded via pyrosm/Geofabrik"
  
@@ -182,7 +180,7 @@ def download_osm_data(force=False):
     if not force and ROADS.exists() and FEATURES.exists():
         print("OSM data already downloaded, reading cached files.")
         return (gpd.read_file(FEATURES, layer="landuse_classes"),
-                gpd.read_file(ROADS, layer="roads"))
+                gpd.read_file(ROADS, layer="s03a_roads"))
  
     bbox = read_extent_bbox()
     print(f"OSM bounding box: {bbox}")

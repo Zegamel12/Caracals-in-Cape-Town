@@ -25,10 +25,8 @@ from python.src.config import SPEED, TIME_COL, TRAJECTORIES
 
 
 def calculate_speed():
-    """Calculate GPS-based movement speed for each animal burst.
-
-    Purpose:
-        Calculate speed in kilometers per hour between consecutive GPS observations within each animal's burst.
+    """
+    Calculate speed in kilometers per hour between consecutive GPS observations within each animal's burst.
 
     Inputs:
         TRAJECTORIES: GPS observations containing animal identifiers, burst identifiers  and timestamps (output step 4).
@@ -66,4 +64,4 @@ def calculate_speed():
     # Save the results
     # https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
     speed_data = trajectory_collection.to_point_gdf().reset_index()
-    speed_data.to_file(SPEED, layer="speed", driver="GPKG")
+    speed_data.to_file(SPEED)

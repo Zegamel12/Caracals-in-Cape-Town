@@ -20,11 +20,11 @@ Output: DISTANCE GeoPackage (points + distance_m + distance_class) and a bar cha
 # - matplotlib savefig:      https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
 
 
-import pandas as pd
 import geopandas as gpd
 import matplotlib.pyplot as plt
+import pandas as pd
 
-from python.src.config import ANALYSIS_CRS, TRAJECTORIES, DISTANCE, ROADS, FIGURES
+from python.src.config import ANALYSIS_CRS, DISTANCE, FIGURES, ROADS, TRAJECTORIES
 
 BINS = [0, 10, 20, 50, 100, 500, float("inf")]
 LABELS = ["0-10 m", "10-20 m", "20-50 m", "50-100 m", "100-500 m", ">500 m"]

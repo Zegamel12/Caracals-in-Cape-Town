@@ -77,15 +77,10 @@ def day_night_analysis():
     del sunrises, sunsets, day_night, times
 
      # Make sure all columns have the right data type
-    gps_data["speed_kmh"] = pd.to_numeric(
-    gps_data["speed_kmh"],
-    errors="coerce",
-    )
+     # Source: https://stackoverflow.com/questions/71166523/cleaning-gps-data-csv-file-with-python
+    gps_data["speed_kmh"] = pd.to_numeric(gps_data["speed_kmh"], errors="coerce")
 
-    gps_data["distance_100m"] = pd.to_numeric(
-        gps_data["distance_100m"],
-        errors="coerce",
-    )
+    gps_data["distance_100m"] = pd.to_numeric(gps_data["distance_100m"], errors="coerce")
     
     ## Remove NAN
     gps_data = gps_data.dropna(

@@ -36,3 +36,7 @@ pg = st.navigation([
     st.Page(question_2_page, title="Q2 Urban vs wildland", icon=":material/location_city:"),
     st.Page(question_3_page, title="Q3 Day vs night", icon=":material/dark_mode:"), ])
 pg.run()
+
+import streamlit as st #https://www.geeksforgeeks.org/python/streamlit-introduction-and-setup/
+
+

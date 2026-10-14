@@ -1,4 +1,3 @@
-
 """
 Step 11 — Compare animal speed in urban and wildland areas.
 
@@ -18,6 +17,7 @@ Outputs:
     Speed-versus-distance plot
     Speed-by-landscape plot
 """
+
 # References:
 #     GeoPandas spatial joins:
 #     https://geopandas.org/en/stable/docs/reference/api/geopandas.sjoin.html
@@ -39,18 +39,17 @@ import statsmodels.formula.api as smf
 
 from python.src.config import (
     ANALYSIS_CRS,
-    TRAJECTORIES,
     DISTANCE,
-    SPEED,
     FEATURES,
     ID_COL,
     LANDSCAPE_OBSERVATIONS,
     LANDSCAPE_STATISTICS,
     MIXED_RESULTS,
+    SPEED,
     SPEED_DISTANCE_PLOT,
     SPEED_LANDSCAPE_PLOT,
+    TRAJECTORIES,
 )
-
 
 # Define landscape categories used in the comparison.
 URBAN_CLASSES = {"urban", "urban_green", "agriculture"}
