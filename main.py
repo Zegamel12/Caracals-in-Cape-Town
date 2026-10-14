@@ -12,6 +12,7 @@ from python.src import (
     step09_visualize,
     step10_daynight,
     step11_urban,
+    step13_combine,
 )
 
 # ADD STEP 9
@@ -33,6 +34,8 @@ steps = [
     ("Comparing influence day vs night...",step10_daynight.day_night_analysis),
     ("Comparing urban vs wildlands",step11_urban.compare_urban_wildland),
     ("Creating (interactive) graphs..",step09_visualize.create_figures),
+    ("Running final analysis...",step13_combine.run_combined_analysis),
+    ("Creating final graphs for dashboard...",step13_combine.make_question_graphs),
 ]
 
 

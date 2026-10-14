@@ -39,11 +39,9 @@ import pandas as pd
 import geopandas as gpd
 import statsmodels.formula.api as smf
 
-from python.src.config import DAY_NIGHT_CSV, ID_COL, LANDSCAPE_OBSERVATIONS, TIME_COL, KEYS
+from python.src.config import DAY_NIGHT_CSV, ID_COL, LANDSCAPE_OBSERVATIONS, TIME_COL, KEYS, COMBINE_DIR
 from python.src.step06_distance import LABELS, add_distance_class
 
-OUT_DIR = Path("/home/osboxes/project-starter-Gezellig_positive_koffie_zebra/python/step_dirs/step13_combine")
-OUT_DIR.mkdir(parents=True, exist_ok=True)
 GROUPS = [(landscape, period) for landscape in ["urban", "wildland"] for period in ["day", "night"]]
 MIN_PER_GROUP = 30 # fewer observation in a group makes the interaction terms unreliable
 LAND_COLOURS = {"urban": "red", "wildland": "green"}
@@ -129,7 +127,7 @@ def check_groups(data):
     )
     
     print(stats)
-    stats.to_csv(OUT_DIR / "s12a_group_statistics.csv")
+    stats.to_csv(COMBINE_DIR / "s12a_group_statistics.csv")
 
 def fit_models(data):
     """Fit mixed-effects models with a random intercept per animal."""
@@ -148,7 +146,7 @@ def fit_models(data):
     )
     
     # Save all model summaries in one text file
-    (OUT_DIR / "s12b_model_summaries.txt").write_text(text, encoding="utf-8")
+    (COMBINE_DIR / "s12b_model_summaries.txt").write_text(text, encoding="utf-8")
 
     return results
 
@@ -185,7 +183,7 @@ def write_answers(results):
 
     # Save and print answers
     output = "\n".join(lines)
-    (OUT_DIR / "s12c_answers.txt").write_text(
+    (COMBINE_DIR / "s12c_answers.txt").write_text(
         output, encoding="utf-8"
     )
     print(output)
@@ -208,7 +206,7 @@ def make_plots(data):
            ylabel="Distance to nearest road (m)",
            title = "Road distance by landscape and time of the day")
 
-    fig.savefig(OUT_DIR / "s12d_distance_by_group,png", dpi=300, bbox_inches ="tight")
+    fig.savefig(COMBINE_DIR / "s12d_distance_by_group.png", dpi=300, bbox_inches ="tight")
     plt.show()
     plt.close(fig)
     
@@ -230,7 +228,7 @@ def plot_speed(data):
         ax.tick_params(axis="x", rotation=45)
 
     fig.suptitle("Mean speed by road distance, landscape and time of day")
-    fig.savefig(OUT_DIR / "s12e_speed_by_distance_class.png",
+    fig.savefig(COMBINE_DIR / "s12e_speed_by_distance_class.png",
                 dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
@@ -265,7 +263,7 @@ def plot_effects(results):
         ax.set(xlabel="Estimate (95% CI)", title=title)
 
     fig.tight_layout()
-    fig.savefig(OUT_DIR / "s12f_effects.png", dpi=300, bbox_inches="tight")
+    fig.savefig(COMBINE_DIR / "s12f_effects.png", dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
 
@@ -292,14 +290,14 @@ def plot_model_lines(results, data):
            title="Predicted speed by road distance and group")
     ax.legend(title="Group")
     ax.grid(alpha=0.3)
-    fig.savefig(OUT_DIR/ "s12g_model_lines.png", dpi=300, bbox_inches="tight")
+    fig.savefig(COMBINE_DIR/ "s12g_model_lines.png", dpi=300, bbox_inches="tight")
     plt.show()
     plt.close(fig)
 
 
 def run_combined_analysis():
     """Answer all research questions on one dataset."""
-    #OUT_DIR.mkdir(parents=True, exist_ok=True)
+    #COMBINE_DIR.mkdir(parents=True, exist_ok=True)
  
     # 1. Combine landscape (step 11) and day/night (step 10) per GPS observation location
     data = load_data()
@@ -429,17 +427,17 @@ FIGURES_PER_QUESTION = {
 def make_question_graphs():
     """Create and save one figure per research question."""
     # 1. Data and models from step 12
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    COMBINE_DIR.mkdir(parents=True, exist_ok=True)
     data = load_data()
     results = fit_models(data)
 
     # 2. One figure per question, with the data credit, saved in the figures folder
-    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    COMBINE_DIR.mkdir(parents=True, exist_ok=True)
     for filename, make_figure in FIGURES_PER_QUESTION.items():
         fig = make_figure(data, results)
         #fig.text(0.99, 0.01, CREDIT, ha="right", fontsize=7)
         fig.tight_layout()
-        fig.savefig(OUT_DIR / filename, dpi=300, bbox_inches="tight")   # Matplotlib savefig
+        fig.savefig(COMBINE_DIR / filename, dpi=300, bbox_inches="tight")   # Matplotlib savefig
         plt.close(fig)
         print("Saved", filename)
 
