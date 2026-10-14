@@ -1,3 +1,5 @@
+# This code was mainly written by: Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 """
 Step 11 — Compare animal speed in urban and wildland areas.
 

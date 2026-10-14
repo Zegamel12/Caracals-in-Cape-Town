@@ -1,3 +1,5 @@
+# This code was mainly written by: Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 """Step 06: distance from every GPS point to the nearest road.
  
 Input : step04 trajectories (points) and step03 roads

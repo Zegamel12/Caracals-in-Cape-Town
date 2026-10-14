@@ -1,3 +1,5 @@
+# This code was mainly written by: Silke Zeeuwen. See the commit history for a detailed contribution record.  
+
 # Import 
 import geopandas as gpd
 from shapely.geometry import box

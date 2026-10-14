@@ -1,3 +1,5 @@
+# This code was mainly written by: Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 """ Download OPenStreetMap data for extent of study area made in step02 with pyrosm (.dbf)
    1. The road network  -> distance to road
    2. Land use / leisure / natural polygons, classified as urban / natural / urban_green

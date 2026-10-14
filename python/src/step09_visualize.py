@@ -1,3 +1,5 @@
+# This code was mainly written by: Jerom den Rooijen. See the commit history for a detailed contribution record.
+
 # Import matplotlib, geopandas and plotly
 import geopandas as gpd
 import matplotlib.pyplot as plt  #https://www.geeksforgeeks.org/python/how-to-import-matplotlib-in-python/

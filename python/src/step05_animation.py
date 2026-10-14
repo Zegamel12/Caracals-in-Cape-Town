@@ -1,3 +1,5 @@
+# This code was mainly written by: Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 """ Step05_animation.py
 Input : step04 trajectories (GeoPackage with one Point per GPS)
 output : an HTML file with a time enabled (plotly) -- open directory in a browser, or load into step12's dashboard.
