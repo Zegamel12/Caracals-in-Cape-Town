@@ -1,9 +1,9 @@
 """Step 12: answers to the research questions, calculated on ONE common dataset.
  
 Combines: 
-    step 11 -> LANDSCAPE_OBSERVATIONS: speed, distance, landscape (urban / wildland) per GPS fix
-    step 10 -> DAY_NIGHT_CSV:   day / night label per GPS fix
-Output: answers.txt (one plain sentence per question), model summaries, group statistics, 2 plots.
+    step 11 -> LANDSCAPE_OBSERVATIONS: speed, distance, landscape (urban / wildland) per GPS observation location
+    step 10 -> DAY_NIGHT_CSV:   day / night label per GPS observation location
+Output: answers.txt (one plain sentence per question), model summaries, group statistics, and plots.
 """
 # References:
 # pandas read_csv:     https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
@@ -19,6 +19,17 @@ Output: answers.txt (one plain sentence per question), model summaries, group st
 # Matplotlib errorbar: https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.errorbar.html
 # Matplotlib plot:     https://matplotlib.org/stable/api/_as_gen/matplotlib.axes.Axes.plot.html
 # Statsmodels conf_int: https://www.statsmodels.org/stable/generated/statsmodels.regression.mixed_linear_model.MixedLMResults.conf_int.html
+# Matplotlib savefig:  https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.savefig.html
+# Mixed model with a random intercept per animal (formula "y ~ a * b" = a + b + a:b):
+#       https://www.statsmodels.org/stable/mixed_linear.html
+#       Bates, Maechler, Bolker & Walker (2015), J. Stat. Softw. 67(1): https://doi.org/10.18637/jss.v067.i01
+# log(1 + x) for skewed distances:  https://numpy.org/doc/stable/reference/generated/numpy.log1p.html
+# Percent change from a log-model coefficient = (exp(b) - 1) * 100:
+#       https://stats.oarc.ucla.edu/other/mult-pkg/faq/general/faqhow-do-i-interpret-a-regression-model-when-some-variables-are-log-transformed/
+#       https://data.library.virginia.edu/interpreting-log-transformations-in-a-linear-model
+#   95% confidence interval of a coefficient:
+# https://www.statsmodels.org/stable/generated/statsmodels.regression.mixed_linear_model.MixedLMResults.conf_int.html
+# Summary as text(return tables as string) : https://www.statsmodels.org/devel/generated/statsmodels.iolib.summary.Summary.as_text.html
 
 from pathlib import Path
 
@@ -31,11 +42,12 @@ import statsmodels.formula.api as smf
 from python.src.config import DAY_NIGHT_CSV, ID_COL, LANDSCAPE_OBSERVATIONS, TIME_COL, KEYS
 from python.src.step06_distance import LABELS, add_distance_class
 
-OUT_DIR = Path("/home/osboxes/project-starter-Gezellig_positive_koffie_zebra/python/step_dirs/combined_results")
+OUT_DIR = Path("/home/osboxes/project-starter-Gezellig_positive_koffie_zebra/python/step_dirs/step13_combine")
 OUT_DIR.mkdir(parents=True, exist_ok=True)
 GROUPS = [(landscape, period) for landscape in ["urban", "wildland"] for period in ["day", "night"]]
 MIN_PER_GROUP = 30 # fewer observation in a group makes the interaction terms unreliable
-COLOURS = {"urban": "tab:orange", "wildland": "tab:green"}
+LAND_COLOURS = {"urban": "red", "wildland": "green"}
+TIME_COLOURS = {"night": "navy", "day": "orange"}
 # One row per research question
 SPEED_MODELS = {
     "A": "speed_kmh ~ distance_100m",
@@ -88,7 +100,7 @@ def load_data():
     landscape[TIME_COL] = pd.to_datetime(landscape[TIME_COL], utc=True)
     daynight[TIME_COL] = pd.to_datetime(daynight[TIME_COL], utc=True)
 
-    # Match GPS fixes
+    # Match GPS observation locationes
     data = landscape.merge(
         daynight, on=KEYS, how="inner", validate="one_to_one"
     )
@@ -104,7 +116,7 @@ def load_data():
     data["distance_100m"] = data["distance_m"] / 100
     data["log_distance"] = np.log1p(data["distance_m"])
 
-    print(f"GPS fixes: {len(data)} | Animals: {data[ID_COL].nunique()}")
+    print(f"GPS observation locationes: {len(data)} | Animals: {data[ID_COL].nunique()}")
     return data
 
 def check_groups(data):
@@ -271,7 +283,7 @@ def plot_model_lines(results, data):
              + p["distance_100m:is_day"] * d * n + p["is_urban:is_day"] * u * n
              + p["distance_100m:is_urban:is_day"] * d * u * n)
 
-        ax.plot(x, y, color=COLOURS[landscape],
+        ax.plot(x, y, color=LAND_COLOURS[landscape],
                 linestyle="-" if period == "day" else "--",
                 linewidth=2, label=f"{landscape}, {period}")
 
@@ -284,11 +296,12 @@ def plot_model_lines(results, data):
     plt.show()
     plt.close(fig)
 
+
 def run_combined_analysis():
     """Answer all research questions on one dataset."""
     #OUT_DIR.mkdir(parents=True, exist_ok=True)
  
-    # 1. Combine landscape (step 11) and day/night (step 10) per GPS fix
+    # 1. Combine landscape (step 11) and day/night (step 10) per GPS observation location
     data = load_data()
  
     # 2. Check that every group has enough observations
@@ -305,7 +318,131 @@ def run_combined_analysis():
     plot_effects(results)
     plot_model_lines(results, data)
     return data, results
- 
- 
+
+def mean_ci(values):
+    """Mean and 95% margin of error (1.96 x standard error)."""
+    return values.mean(), 1.96 * values.sem()   
+
+def labelled(groups):
+    """Axis labels with the number of observation locationes: 'urban (n=4,718)'."""
+    return [f"{name}\n(n={len(values):,})" for name, values in groups.items()]
+
+def fitted_lines(params, flag, d):
+    """Fitted lines for flag = 0 and flag = 1 from the model 'speed ~ distance_100m * flag'."""
+    base = params["Intercept"] + params["distance_100m"] * d
+    return base, base + params[flag] + params[f"distance_100m:{flag}"] * d
+
+
+def model_line_panel(ax, data, results, formula_key, flag, colours):
+    """Faint observations plus the two fitted lines (flag = 0 and flag = 1)."""
+    sample = data.sample(min(len(data), 5000), random_state=1)   # faint points only give the background
+    ax.scatter(sample["distance_m"], sample["speed_kmh"], s=4, alpha=0.08, color="grey", rasterized=True)
+    x = np.linspace(0, data["distance_m"].quantile(0.99), 100)   # leave out the extreme tail
+    low, high = fitted_lines(results[SPEED_MODELS[formula_key]].params, flag, x / 100)
+    names = list(colours)   # first name = flag 0, second name = flag 1
+    ax.plot(x, low, color=colours[names[0]], linewidth=2.5, label=f"{names[0]} (model)")
+    ax.plot(x, high, color=colours[names[1]], linewidth=2.5, label=f"{names[1]} (model)")
+    ax.set_xlabel("Distance to nearest road (m)")
+    ax.set_ylabel("Speed (km/h)")
+    ax.set_ylim(0, data["speed_kmh"].quantile(0.99))
+    ax.legend()
+
+
+def figure_q1(data, results):
+    """Q1: does speed change with distance to the nearest road?"""
+    data = add_distance_class(data.copy())
+    groups = {c: data.loc[data["distance_class"] == c, "speed_kmh"] for c in LABELS}
+    groups = {c: v for c, v in groups.items() if len(v) > 1}
+
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    ax1.boxplot(list(groups.values()), tick_labels=labelled(groups), showfliers=False)
+    ax1.set_title("Speed distribution per distance class")
+    ax2.errorbar(range(len(groups)), [mean_ci(v)[0] for v in groups.values()],
+                 yerr=[mean_ci(v)[1] for v in groups.values()], fmt="o-", capsize=4)
+    ax2.set_xticks(range(len(groups)))
+    ax2.set_xticklabels(list(groups))
+    ax2.set_title("Mean speed (95% interval) per distance class")
+    for ax in (ax1, ax2):
+        ax.set_xlabel("Distance to nearest road")
+        ax.set_ylabel("Speed (km/h)")
+        ax.tick_params(axis="x", rotation=30)
+    fig.suptitle("Q1: Do caracals move at different speeds close to roads than far from roads?")
+    return fig
+
+
+def figure_q2(data, results):
+    """Q2: does the speed-distance relationship differ between urban and wildland?"""
+    groups = {g: data.loc[data["landscape"] == g] for g in LAND_COLOURS}
+    fig, (ax1, ax2, ax3) = plt.subplots(1, 3, figsize=(17, 5))
+    ax1.boxplot([g["speed_kmh"] for g in groups.values()], tick_labels=labelled(groups), showfliers=False)
+    ax1.set_ylabel("Speed (km/h)")
+    ax1.set_title("Speed")
+    ax2.boxplot([g["distance_m"] for g in groups.values()], tick_labels=labelled(groups), showfliers=False)
+    ax2.set_ylabel("Distance to nearest road (m)")
+    ax2.set_title("Distance to the nearest road")
+    # Model lines: flag 0 = wildland, flag 1 = urban
+    model_line_panel(ax3, data, results, "B", "is_urban", {"wildland": "green", "urban": "red"})
+    ax3.set_title("Speed vs distance: model lines")
+    fig.suptitle("Q2: Does the relationship between speed and road distance differ between urban and wildland?")
+    return fig
+
+
+def figure_q3(data, results):
+    """Q3: does the speed-distance relationship differ between day and night?"""
+    groups = {t: data.loc[data["day_night"] == t] for t in ("day", "night")}
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(13, 5))
+    ax1.boxplot([g["speed_kmh"] for g in groups.values()], tick_labels=labelled(groups), showfliers=False)
+    ax1.set_ylabel("Speed (km/h)")
+    ax1.set_title("Speed by time of day")
+    # Model lines: flag 0 = night, flag 1 = day
+    model_line_panel(ax2, data, results, "C", "is_day", TIME_COLOURS)
+    ax2.set_title("Speed vs distance: model lines")
+    fig.suptitle("Q3: Does the relationship between speed and road distance differ between day and night?")
+    return fig
+
+
+def figure_q4(data, results):
+    """Optional Q4: different road proximity by landscape and time of day?"""
+    groups = {f"{l}\n{t}": data.loc[(data["landscape"] == l) & (data["day_night"] == t), "distance_m"]
+              for l in LAND_COLOURS for t in ("day", "night")}
+    fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(14, 5))
+    ax1.boxplot(list(groups.values()), tick_labels=labelled(groups), showfliers=False)
+    ax1.set_title("Distance to the nearest road")
+    ax2.errorbar(range(len(groups)), [mean_ci(v)[0] for v in groups.values()],
+                 yerr=[mean_ci(v)[1] for v in groups.values()], fmt="o", capsize=4)
+    ax2.set_xticks(range(len(groups)))
+    ax2.set_xticklabels(list(groups))
+    ax2.set_title("Mean distance (95% interval)")
+    for ax in (ax1, ax2):
+        ax.set_xlabel("Landscape and time of day")
+        ax.set_ylabel("Distance to nearest road (m)")
+    fig.suptitle("Q4: Do caracals show different road proximity by landscape and time of day?")
+    return fig
+
+FIGURES_PER_QUESTION = {
+    "s13_q1_speed_vs_distance.png": figure_q1,
+    "s13_q2_urban_vs_wildland.png": figure_q2,
+    "s13_q3_day_vs_night.png": figure_q3,
+    "s13_q4_road_proximity.png": figure_q4,
+}
+
+def make_question_graphs():
+    """Create and save one figure per research question."""
+    # 1. Data and models from step 12
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    data = load_data()
+    results = fit_models(data)
+
+    # 2. One figure per question, with the data credit, saved in the figures folder
+    OUT_DIR.mkdir(parents=True, exist_ok=True)
+    for filename, make_figure in FIGURES_PER_QUESTION.items():
+        fig = make_figure(data, results)
+        #fig.text(0.99, 0.01, CREDIT, ha="right", fontsize=7)
+        fig.tight_layout()
+        fig.savefig(OUT_DIR / filename, dpi=300, bbox_inches="tight")   # Matplotlib savefig
+        plt.close(fig)
+        print("Saved", filename)
+
+
 if __name__ == "__main__":
-    run_combined_analysis()
+    make_question_graphs(), run_combined_analysis()
