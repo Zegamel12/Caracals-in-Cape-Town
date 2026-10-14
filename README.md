@@ -16,3 +16,5 @@ _... = semantic naming.
 
 
 In temp (temperarily) you put data that you need for processing but not for permanent use
+
+Instructions on how to run are available in headers of main.py.
