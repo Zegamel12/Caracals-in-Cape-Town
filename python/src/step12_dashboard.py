@@ -27,7 +27,7 @@ def home_page():
     st.markdown(
         "The visualisation will provide an overview of how the animals move through Cape Town (South-Africa) during periods within 2014 and 2017. "
         "To answer the main research question this dashboard will first answer three sub-questions: "
-        "navigate through our project to end up with the final answer on the main research question at the end.")
+        "navigate through our project, using the menu on the left, to get the answer on the main research question at the end.")
 
     # Import title card animation map
     st.iframe(ANIMATION, height=800)
@@ -121,16 +121,16 @@ def end_page():
 
     st.info("Main Research Question: **'To what extend does a medium-sized predator care about human activity?'**")
     
-    st.success("")
+    st.success("In this project, Caracals were found to move faster near roads, stay closer to roads in urban areas and show a stronger relationship between road distance and movement speed at night, compared with daytime observations. These findings do not indicate complete avoidance of human activity. Rather, they suggest behavioural adjustment. Faster movement near roads could mean that Caracals use roads to travel more efficiently. Their slower movement speeds in urban areas could be a sign of more cautious movement behaviour. Furthermore, avoidance of roads at night could indicate the repelling effect of bright car lights. However, these potential explanations cannot be scientifically supported by the current analyses.")
 
 
 # Navigation s: https://docs.streamlit.io/develop/api-reference/navigation/st.page for icons https://fonts.google.com/icons
 pg = st.navigation([
-    st.Page(home_page, title="Start: Main Research Question", icon=":material/map:", default=True),
+    st.Page(home_page, title="Main Research Question", icon=":material/map:", default=True),
     st.Page(question_1_page, title="Q1 Speed vs Distance", icon=":material/speed:"),
     st.Page(question_2_page, title="Q2 Urban vs Wildland", icon=":material/location_city:"),
     st.Page(question_3_page, title="Q3 Day vs Night", icon=":material/dark_mode:"),
-    st.Page(end_page, title="End: Answering Main Research Question", icon=":material/sports_score:"), ])
+    st.Page(end_page, title="Conclusion", icon=":material/sports_score:"), ])
 pg.run()
 
 
