@@ -1,5 +1,4 @@
 # Import
-from pathlib import Path
 from zoneinfo import ZoneInfo
 
 import geopandas as gpd
