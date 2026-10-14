@@ -104,11 +104,13 @@ def question_3_page():
             caption="Influence of day and night time on movement.",
             alt="",)
         
-        st.info("")
+        st.info("Left graph: night speeds are higher than day speeds (median about 0.09 vs. 0.06 km/h (log-scale))\n\n"
+        "Right graph: at night (blue line), speed rises as distance from the road increases. During the day (orange line) the line is almost flat.")
 
 
     with st.expander("Answer of Q3"):
-        st.success("")
+        st.success("So, to answer the sub-question:\n\n" 
+        "Yes. The effect of distance to the road on speed is observed mainly at night.")
 
 def end_page():
 
