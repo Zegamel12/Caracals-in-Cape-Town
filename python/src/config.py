@@ -17,7 +17,8 @@ step_names = [
     "step09_visualize",
     "step10_daynight",
     "step11_urban",
-    "step12_dashboard"
+    "step12_dashboard",
+    "step13_combine", 
 ]
 
 # Create step directories and data/temp directories
@@ -48,6 +49,7 @@ SPEED_DISTANCE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" /
 SPEED_LANDSCAPE_PLOT = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11e_speed_by_landscape.png")
 MIXED_RESULTS = (base / "python" / "step_dirs" / "step11_urban" / "data" / "s11f_mixed_model.txt")
 FIGURES = (base / "python" / "output" / "figures")
+COMBINE_DIR = (base / "python" / "step_dirs" / "step13_combine" / "data")
 
 # Coordinate reference systems. Cordinates lie in UTM-zone 34S, this is tied to the EPSG:32734 https://spatialreference.org/ref/epsg/32734/
 GPS_CRS = "EPSG:4326"
