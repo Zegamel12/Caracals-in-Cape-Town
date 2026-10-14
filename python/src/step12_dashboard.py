@@ -20,7 +20,7 @@ st.set_page_config(page_title="Caracals in Cape Town", layout="wide")
 def home_page():
 
     # Title
-    st.title("Caracals in Cape Town")
+    st.title("Start: Caracals in Cape Town")
 
     st.info("Main Research Question: **'To what extend does a medium-sized predator care about human activity?'**")
     
@@ -38,7 +38,7 @@ def home_page():
             caption="Amount of GPS points per caracal.",)
         
         st.info(
-            "")
+            "A look into our dataset with gps measurements per caracal. Notice the amount of GPS points are unevenly distrubted per caracal.")
 
 def question_1_page():
     st.title("Q1: Speed and distance to roads")
@@ -52,8 +52,6 @@ def question_1_page():
             caption="Road network within our study area.",
             alt="",)
     
-        
-        st.info("")    
     
     with st.expander("Speed statistics per distance class."):
         st.image( 
@@ -62,10 +60,12 @@ def question_1_page():
             alt="",)
     
         
-        st.info("")
+        st.info(
+            "•	Left graph (boxplots): the typical speed (median) is low and similar in all distance classes.\n\n"
+            "•	Right graph (mean speed): caracals are fastest very close to roads (0-10 m, about 0.38 km/h). They are slowest at 50-100 m (about 0.17 km/h) and a bit faster again far away (>500 m, about 0.27 km/h).")
 
     with st.expander("Answer of Q1"):
-        st.success("")
+        st.success("Yes. Caracals move faster when very close to roads. This may mean they hurry near roads.")
 
 def question_2_page():
     st.title("Q2: Urban vs wildland")
@@ -77,8 +77,6 @@ def question_2_page():
             FIGURES / "s03b_landuse_classes.png",
             caption="Landuse classes within our study area.",
             alt="",)
-        
-        st.info("")
 
 
     with st.expander("Urban versus wildland."):
@@ -87,11 +85,15 @@ def question_2_page():
             caption="Urban versus wildland.",
             alt="",)
         
-        st.info("")
+        st.info(
+        "•	Left graph: overall speed is similar in both landscapes.\n\n"
+        "•	Middle graph: urban caracals stay much closer to roads (median about 125 m) than wildland caracals (median about 480 m).\n\n"
+        "•	Right graph: in urban areas (red line), speed goes up quickly as distance from the road increases. In wildland (green line), speed goes up only a little. The lines cross at about 500 m."
+        )
 
 
     with st.expander("Answer of Q2"):
-        st.success("")
+        st.success("Yes. Road distance affects speed more strongly in urban areas.")
 
 def question_3_page():
     st.title("Q3: Day vs night")
@@ -113,7 +115,7 @@ def question_3_page():
 def end_page():
 
     # Title
-    st.title("Caracals in Cape Town")
+    st.title("End: Caracals in Cape Town")
 
     st.info("Main Research Question: **'To what extend does a medium-sized predator care about human activity?'**")
     
