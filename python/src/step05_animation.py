@@ -2,6 +2,7 @@
 Input : step04 trajectories (GeoPackage with one Point per GPS)
 output : an HTML file with a time enabled (plotly) -- open directory in a browser, or load into step12's dashboard.
 """
+
 # # References
 # - plotly acatter_map: https://plotly.com/python-api-reference/generated/plotly.express.scatter_map.html
 # - plotly animations :https://plotly.com/python/animations/
@@ -73,7 +74,7 @@ def create_animation_map(frame_frq ="W", output = ANIMATION):
     
   print(f"Plotly animation creation: {time.perf_counter() - start:.2f} seconds")
   
-  # 8. savand show the animated map as HTML file 
+  # 8. savE and show the animated map as HTML file 
   # https://plotly.com/python/interactive-html-export/
   # "cdn" keeps the HTML small; needs internet to view
   

@@ -64,4 +64,4 @@ def calculate_speed():
     # Save the results
     # https://movingpandas.readthedocs.io/en/main/api/api/movingpandas.TrajectoryCollection.to_point_gdf.html
     speed_data = trajectory_collection.to_point_gdf().reset_index()
-    speed_data.to_file(SPEED, layer="speed", driver="GPKG")
+    speed_data.to_file(SPEED)

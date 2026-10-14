@@ -89,15 +89,10 @@ def compare_speed_to_distance():
     gps_dataset["distance_100m"] = gps_dataset["distance_m"] / 100
 
     # Make sure all columns have the right data type
-    gps_dataset["speed_kmh"] = pd.to_numeric(
-    gps_dataset["speed_kmh"],
-    errors="coerce",
-    )
+    # Source: https://stackoverflow.com/questions/71166523/cleaning-gps-data-csv-file-with-python
+    gps_dataset["speed_kmh"] = pd.to_numeric(gps_dataset["speed_kmh"], errors="coerce")
 
-    gps_dataset["distance_100m"] = pd.to_numeric(
-        gps_dataset["distance_100m"],
-        errors="coerce",
-    )
+    gps_dataset["distance_100m"] = pd.to_numeric(gps_dataset["distance_100m"], errors="coerce")
 
     # Remove NAN
     gps_dataset = gps_dataset.dropna(

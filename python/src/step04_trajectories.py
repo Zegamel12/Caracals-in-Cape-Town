@@ -1,10 +1,11 @@
 # Main processing workflow from: https://wec.wur.nl/dse/33-ts3.html, https://wec.wur.nl/dse/31-ts1.html 
 
  # Import
-import geopandas as gpd # https://geopandas.org/en/stable/docs/user_guide.html
-import pandas as pd # https://pandas.pydata.org/docs/user_guide/index.html
+import geopandas as gpd  # https://geopandas.org/en/stable/docs/user_guide.html
+import pandas as pd  # https://pandas.pydata.org/docs/user_guide/index.html
 
 from python.src.config import GPS_DATA, TRAJECTORIES
+
 
 def create_bursts():
     """ 
