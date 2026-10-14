@@ -11,12 +11,12 @@ output : an HTML file with a time enabled (plotly) -- open directory in a browse
 # - plotly interactive : https://www.geeksforgeeks.org/data-visualization/using-plotly-for-interactive-data-visualization-in-python/
 # - pandas Period / to_period: https://pandas.pydata.org/docs/reference/api/pandas.Series.dt.to_period.html
 
+import time
 from pathlib import Path
-import time                
 
 import geopandas as gpd
 import pandas as pd
-import plotly.express as px  
+import plotly.express as px
 
 from python.src.config import ANIMATION, ID_COL, TRAJECTORIES
 
@@ -80,7 +80,6 @@ def create_animation_map(frame_frq ="W", output = ANIMATION):
   fig.write_html(output, include_plotlyjs=True, auto_play=False)
 
   print(f"Animation saved to: {Path(output).resolve()}")
-
 
   # fig.show()
   

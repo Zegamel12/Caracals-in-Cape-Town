@@ -1,6 +1,4 @@
 # Import
-from pathlib import Path
-
 import geopandas as gpd
 import numpy as np
 import pandas as pd
@@ -127,8 +125,6 @@ def compare_speed_to_distance():
     SPEED_DISTANCE_MODEL.write_text(
         results.summary().as_text(),
         encoding="utf-8")
-
-
 
 if __name__ == "__main__":
     compare_speed_to_distance()

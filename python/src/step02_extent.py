@@ -1,5 +1,4 @@
 # Import 
-
 import geopandas as gpd
 from shapely.geometry import box
 
@@ -9,21 +8,13 @@ from python.src.config import ANALYSIS_CRS, EXTENT_FILE, GPS_DATA
 def create_extent():
     """ Create an extent based on the gps data points. """
     # Get the right file you downloaded in step 1
-    gps_file = GPS_DATA
     extent_file = EXTENT_FILE
 
     # Extend area with a buffer zone in meters
     buffer_m = 200
 
-    # If file does not exists, run step01
-    if not gps_file.exists():
-        raise FileNotFoundError(
-            "GPS-file not found: first run Step01"
-        )
     # Read gps points from file
-    gps_points = gpd.read_file(gps_file)
-    if gps_points.empty:
-        raise ValueError("GPS-file does not contain GPS-points")
+    gps_points = gpd.read_file(GPS_DATA)
 
     # Convert points to CRS with unit in meters
     gps_points_m = gps_points.to_crs(ANALYSIS_CRS)
