@@ -1,5 +1,15 @@
+### End product can be found in dashboard (or s12).
+
+# Group: gezellig_positive_koffie_zebra
+# Kahsu Berihu Berhe, Joep van Dongen, Jerom den Rooijen, Silke Zeeuwen
+# 14-10-2026
+# Geoscripting Final Project, Challenge #5
+
+# Main contributer of main.py: Jerom den Rooijen
+
 ### Main, run it with 'pixi run main'. After running it starts hosting dashboard on port 8501.
 ## To run dashboard without running whole of main.py, use 'pixi run dashboard'
+
 
 from tqdm import tqdm
 import subprocess
@@ -38,7 +48,7 @@ steps = [
 ]
 
 
-
+# Loading bar with all steps in it.
 bar = tqdm(steps, unit="step") # Source: https://github.com/tqdm/tqdm?tab=readme-ov-file#custom-integration : iterable_based
 for name, step in bar:
     bar.set_description(name)
