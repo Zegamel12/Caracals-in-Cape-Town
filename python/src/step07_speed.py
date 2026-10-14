@@ -1,3 +1,5 @@
+# This code was mainly written by: Silke Zeeuwen & Jerom den Rooijen. See the commit history for a detailed contribution record.
+
 """Step 07: speed (km/h) between consecutive GPS fixes within each burst.
  
 Input : step 06 points (they already hold distance_m, so the output holds speed AND distance)

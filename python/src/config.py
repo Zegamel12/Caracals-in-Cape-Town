@@ -1,3 +1,5 @@
+# This code was mainly written by: Jerom den Rooijen & Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 # Here put in the consistend variables, so we can quickly change them in the whole script.
 
 from pathlib import Path

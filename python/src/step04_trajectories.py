@@ -1,3 +1,5 @@
+# This code was mainly written by: Joep van Dongen. See the commit history for a detailed contribution record.
+
 # Main processing workflow from: https://wec.wur.nl/dse/33-ts3.html, https://wec.wur.nl/dse/31-ts1.html 
 
  # Import

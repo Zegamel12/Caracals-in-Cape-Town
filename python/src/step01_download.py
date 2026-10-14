@@ -1,3 +1,5 @@
+# This code was mainly written by: Joep van Dongen. See the commit history for a detailed contribution record.  
+
 # Import
 import hashlib
 import io

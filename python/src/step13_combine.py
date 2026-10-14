@@ -1,3 +1,5 @@
+# This code was mainly written by: Kahsu Berihu Berhe. See the commit history for a detailed contribution record.
+
 """Step 12: answers to the research questions, calculated on ONE common dataset.
  
 Combines: 

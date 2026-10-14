@@ -1,3 +1,5 @@
+# This code was mainly written by: Jerom den Rooijen. See the commit history for a detailed contribution record.
+
 # Import plotly and steamlit
 import plotly.express as px
 import streamlit as st 
