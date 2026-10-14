@@ -1,4 +1,9 @@
+### Main, run it with 'pixi run main'. After running it starts hosting dashboard on port 8501.
+## To run dashboard without running whole of main.py, use 'pixi run dashboard'
+
 from tqdm import tqdm
+import subprocess
+import sys
 
 from python.src import (
     step01_download,
@@ -14,12 +19,6 @@ from python.src import (
     step11_urban,
     step13_combine,
 )
-
-# ADD STEP 9
-#    step09_visualize,
-
-
-
 
 # Create list for loading bar and runs
 steps = [
@@ -44,3 +43,6 @@ bar = tqdm(steps, unit="step") # Source: https://github.com/tqdm/tqdm?tab=readme
 for name, step in bar:
     bar.set_description(name)
     step()
+
+# Run dashboard on port 8501.
+subprocess.run([sys.executable, "-m", "streamlit", "run", "python/src/step12_dashboard.py"])
