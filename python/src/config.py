@@ -4,7 +4,10 @@
 
 from pathlib import Path
 
-base = Path('.') # This references the root of the current directory
+from pathlib import Path
+
+# Project root: Caracals-in-Cape-Town/
+base = Path(__file__).resolve().parents[2]
 
 # Step directories
 step_names = [
