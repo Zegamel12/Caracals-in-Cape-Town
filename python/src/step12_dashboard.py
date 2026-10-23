@@ -44,7 +44,19 @@ def home_page():
         "navigate through our project, using the menu on the left, to get the answer on the main research question at the end.")
 
     # Figure 1
-    st.iframe(ANIMATION, height=800)
+    #st.iframe(ANIMATION, height=800)
+
+    # Figure 1: Caracal movement animation
+import streamlit.components.v1 as components
+
+if ANIMATION.exists():
+    components.html(
+        ANIMATION.read_text(encoding="utf-8"),
+        height=800,
+        scrolling=True,
+    )
+else:
+    st.warning(f"Animation file not found: {ANIMATION}")
 
     # Figure 2
     with st.expander("Amount of GPS points per caracal."):
