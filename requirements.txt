@@ -12,3 +12,4 @@ astral
 numpy
 pyrosm
 toml
+python
