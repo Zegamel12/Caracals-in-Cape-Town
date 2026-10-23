@@ -14,7 +14,7 @@ from python.src.config import (
     ANALYSIS_CRS,
     GPS_CRS,
     password_movebank,
-    username_movebank,
+    username_movebank
 )
 
 
