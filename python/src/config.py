@@ -72,7 +72,13 @@ KEYS = [ID_COL, TIME_COL, "burst_id"]
 BUFFER_M = 200
 ALLOWED_INTERVALS = [1200, 7200, 10800]
 TIMEZONE = "Africa/Johannesburg"
-STUDY_LOCATION = {"name": "Cape Town", "region": "Western Cape", "lat": -33.9249, "lon": 18.4241
+STUDY_LOCATION = {"name": "Cape Town", "region": "Western Cape", "lat": -33.9249, "lon": 18.4241}
 
+# Movebank
+MOVEbank_STUDY_ID = "1832666571"
+
+# Set Movebank username and password
+username_movebank = "Jovado" 
+password_movebank = "waardeloos123"
 
 
