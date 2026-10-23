@@ -1,568 +1,333 @@
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#20372b">
-<meta name="description" content="Exploring caracal movement in Cape Town through GPS tracking, spatial ecology and geospatial data science.">
-<title>Caracals in Cape Town | Wildlife Research</title>
-
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Caracals in Cape Town — Wildlife Research Portfolio</title>
 <style>
 :root {
-  --forest: #20372b;
-  --forest-light: #304b39;
-  --gold: #d6ad70;
-  --cream: #f5f1e7;
-  --paper: #fffdf7;
-  --text: #293b30;
-  --muted: #667367;
-  --line: #dce0d4;
-  --serif: Georgia, "Times New Roman", serif;
-  --sans: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --green: #263c31;
+  --gold: #d5a45e;
+  --paper: #f4f0e6;
+  --ink: #293b30;
+  --muted: #657167;
+  --line: #d9ded2;
 }
-
 * { box-sizing: border-box; }
-
 html { scroll-behavior: smooth; }
-
 body {
   margin: 0;
-  background: var(--cream);
-  color: var(--text);
-  font-family: var(--sans);
-  line-height: 1.7;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+  line-height: 1.6;
 }
-
 a { color: inherit; }
-
-.wrap {
-  width: min(1120px, calc(100% - 44px));
-  margin-inline: auto;
-}
-
+.wrap { width: min(1160px, calc(100% - 44px)); margin: auto; }
 .hero {
-  color: var(--cream);
-  background:
-    radial-gradient(ellipse at 80% 25%, #71835b70, transparent 36%),
-    linear-gradient(120deg, #20372b, #17291f 72%, #394633);
+  background: linear-gradient(115deg, #263c31, #1b2e24 70%, #344332);
+  color: #f7f4ec;
   overflow: hidden;
 }
-
-nav {
+.nav {
+  min-height: 78px;
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  gap: 24px;
-  min-height: 82px;
-  border-bottom: 1px solid #ffffff28;
+  align-items: center;
+  gap: 20px;
+  border-bottom: 1px solid #ffffff2b;
 }
-
 .brand {
   display: flex;
   align-items: center;
   gap: 12px;
   font-size: 12px;
-  font-weight: 800;
+  font-weight: 750;
   letter-spacing: .12em;
   text-transform: uppercase;
 }
-
-.brand-mark {
-  display: grid;
-  place-items: center;
-  width: 38px;
-  height: 38px;
+.mark {
+  width: 34px;
+  height: 34px;
   border: 1px solid var(--gold);
   border-radius: 50%;
+  display: grid;
+  place-items: center;
   color: var(--gold);
-  font: 23px var(--serif);
+  font-family: Georgia, serif;
+  font-size: 18px;
 }
-
 .navlinks {
   display: flex;
-  gap: 24px;
-  font-size: 12px;
+  flex-wrap: wrap;
+  gap: 22px;
+  font-size: 11px;
+  letter-spacing: .06em;
+  text-transform: uppercase;
 }
-
-.navlinks a {
-  text-decoration: none;
-  color: #e0e5da;
-}
-
+.navlinks a { text-decoration: none; }
 .navlinks a:hover { color: var(--gold); }
-
 .hero-grid {
   display: grid;
   grid-template-columns: 1.05fr .95fr;
+  gap: 50px;
   align-items: center;
-  gap: 48px;
-  padding-block: 75px 85px;
+  padding: 75px 0 85px;
 }
-
-.eyebrow, .kicker {
+.eyebrow, .kicker, .mini {
   font-size: 11px;
   font-weight: 800;
-  letter-spacing: .18em;
+  letter-spacing: .16em;
   text-transform: uppercase;
 }
-
 .eyebrow { color: var(--gold); }
-
 h1, h2, h3 {
-  font-family: var(--serif);
+  font-family: Georgia, "Times New Roman", serif;
   font-weight: 500;
-  line-height: 1.12;
+  line-height: 1.08;
 }
-
 h1 {
-  margin: 23px 0;
-  font-size: clamp(48px, 6.5vw, 78px);
+  font-size: clamp(48px, 6vw, 78px);
   letter-spacing: -.045em;
+  margin: 25px 0 22px;
 }
-
-h1 em {
-  color: var(--gold);
-  font-weight: 400;
-}
-
+h1 em { color: #d8ad6a; }
 .lead {
   max-width: 540px;
-  color: #d7e0d5;
-  font-size: 16px;
-  line-height: 1.9;
+  color: #dce3d8;
+  font-size: 17px;
+  line-height: 1.8;
 }
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-  margin-top: 30px;
-}
-
+.actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
 .btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  gap: 9px;
+  display: inline-block;
   padding: 12px 17px;
   border: 1px solid var(--gold);
   border-radius: 3px;
-  font-size: 12px;
-  font-weight: 800;
   text-decoration: none;
-  transition: transform .2s, background .2s;
-}
-
-.btn:hover { transform: translateY(-2px); }
-
-.btn-gold {
-  background: var(--gold);
-  color: #1d2c22;
-}
-
-.btn-outline {
-  color: var(--cream);
-  border-color: #89978a;
-}
-
-.hero-note {
-  margin-top: 34px;
-  padding-top: 18px;
-  border-top: 1px solid #ffffff30;
-  color: #becbbd;
-  font-size: 10px;
-  letter-spacing: .13em;
-  text-transform: uppercase;
-}
-
-.art {
-  width: 100%;
-  max-width: 470px;
-  justify-self: center;
-}
-
-.art svg {
-  display: block;
-  width: 100%;
-  filter: drop-shadow(0 22px 18px #101a1470);
-}
-
-.art-caption {
-  color: #c6d1c3;
-  font-size: 10px;
-  letter-spacing: .12em;
-  text-align: right;
-  text-transform: uppercase;
-}
-
-.section { padding-block: 82px; }
-
-.kicker { color: #927044; }
-
-.section-heading {
-  display: flex;
-  align-items: end;
-  justify-content: space-between;
-  gap: 30px;
-  margin-bottom: 35px;
-}
-
-h2 {
-  margin: 12px 0 0;
-  font-size: clamp(34px, 4vw, 48px);
-  letter-spacing: -.035em;
-}
-
-.section-intro {
-  max-width: 390px;
-  margin: 0;
-  color: var(--muted);
-  font-size: 14px;
-}
-
-.about-grid {
-  display: grid;
-  grid-template-columns: .8fr 1.2fr;
-  gap: 65px;
-}
-
-.quote {
-  margin: 0;
-  padding-left: 23px;
-  border-left: 3px solid var(--gold);
-  color: #3c5543;
-  font: 28px/1.4 var(--serif);
-}
-
-.bodycopy {
-  color: #59675b;
-  font-size: 14px;
-}
-
-.tags {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin-top: 22px;
-}
-
-.tag {
-  padding: 6px 10px;
-  border: 1px solid #cbd2c5;
-  color: #536453;
-  font-size: 10px;
+  font-size: 12px;
   font-weight: 750;
-  letter-spacing: .04em;
+}
+.btn.primary { background: var(--gold); color: #1e2c23; }
+.btn.ghost { color: #f7f4ec; border-color: #829084; }
+.hero-note {
+  margin-top: 35px;
+  padding-top: 18px;
+  border-top: 1px solid #ffffff2b;
+  color: #bfc9be;
+  font-size: 11px;
+  letter-spacing: .1em;
   text-transform: uppercase;
 }
-
-.questions { background: #e8e6d8; }
-
-.question-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 15px;
-}
-
-.qcard {
-  min-height: 220px;
-  padding: 25px;
-  border-top: 2px solid #9aa17c;
-  background: #faf8f0;
-  transition: transform .2s, box-shadow .2s;
-}
-
-.qcard:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 12px 25px #24372a12;
-}
-
-.qnum {
-  color: #9d7144;
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .15em;
-}
-
-.qcard h3 {
-  margin: 24px 0 12px;
-  font-size: 24px;
-}
-
-.qcard p {
-  margin-bottom: 0;
-  color: var(--muted);
-  font-size: 13px;
-}
-
-.workflow {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 22px;
-  margin-top: 45px;
-}
-
-.step-icon {
+.visual {
+  min-height: 390px;
+  position: relative;
   display: grid;
   place-items: center;
-  width: 46px;
-  height: 46px;
+  background: radial-gradient(circle at 70% 28%, #c49b5d 0 17%, transparent 17.5%);
+}
+.cat { width: 100%; max-width: 450px; position: relative; z-index: 1; }
+.image-caption {
+  position: absolute;
+  bottom: 5px;
+  right: 0;
+  color: #d7dfd1;
+  font-size: 10px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+}
+.section { padding: 82px 0; }
+.section-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: end;
+  gap: 30px;
+  margin-bottom: 34px;
+}
+.kicker { color: #8a6942; }
+.section h2 {
+  color: var(--ink);
+  font-size: clamp(34px, 4vw, 49px);
+  letter-spacing: -.035em;
+  margin: 12px 0 0;
+}
+.section-intro { max-width: 400px; color: var(--muted); font-size: 14px; margin: 0; }
+.about-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 65px; }
+.pullquote {
+  font-family: Georgia, serif;
+  font-size: 28px;
+  line-height: 1.35;
+  border-left: 3px solid var(--gold);
+  padding-left: 22px;
+  margin: 0;
+  color: #3c5543;
+}
+.bodycopy { color: #59675b; font-size: 15px; }
+.tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 22px; }
+.tag {
+  border: 1px solid #cbd2c5;
+  color: #536453;
+  padding: 6px 9px;
+  font-size: 10px;
+  text-transform: uppercase;
+}
+.questions { background: #e8e6d8; }
+.question-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.qcard {
+  background: #f8f6ee;
+  padding: 26px;
+  border-top: 2px solid #9aa17c;
+}
+.qnum, .figure-copy .mini { color: #9d7144; }
+.qcard h3 { font-size: 24px; margin: 22px 0 12px; }
+.qcard p, .figure-copy p { color: var(--muted); font-size: 13px; margin-bottom: 0; }
+.workflow { display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; }
+.step-icon {
+  width: 44px;
+  height: 44px;
   border: 1px solid #a8b19f;
   border-radius: 50%;
+  display: grid;
+  place-items: center;
   color: #3f5a45;
-  font-size: 19px;
+  font-size: 18px;
 }
-
-.step h3 {
-  margin: 19px 0 8px;
-  font-size: 23px;
+.step h3 { font-size: 22px; margin: 18px 0 8px; }
+.step p { color: var(--muted); font-size: 12px; }
+.gallery, .map-gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px; }
+.figure-card, .map-card {
+  background: #fffdf7;
+  border: 1px solid var(--line);
+  overflow: hidden;
+  box-shadow: 0 8px 24px #24372a0a;
 }
-
-.step p {
-  color: var(--muted);
+.figure-card a, .map-card a { display: block; }
+.figure-card img, .map-card img {
+  display: block;
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  object-fit: contain;
+  background: #f8f6ee;
+}
+.figure-copy { padding: 19px 21px 22px; }
+.figure-copy h3 { font-size: 23px; margin: 9px 0; }
+.gallery-note { margin-top: 22px; color: var(--muted); font-size: 12px; }
+.gallery-note code { background: #e8e6d8; padding: 3px 6px; }
+.animation-panel { background: #1e3026; padding: 12px; }
+.animation-panel iframe {
+  display: block;
+  width: 100%;
+  height: 560px;
+  border: 0;
+  background: #f8f6ee;
+}
+.animation-caption {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 14px;
+  padding: 14px 8px 5px;
+  color: #dce3d8;
   font-size: 12px;
 }
-
-.feature {
-  background: var(--forest);
-  color: var(--cream);
-}
-
-.feature h2 { color: var(--cream); }
-
-.feature .kicker { color: var(--gold); }
-
+.animation-caption a { color: #e0b875; }
+.feature { background: var(--green); color: #f5f1e7; }
+.feature .section h2 { color: #f5f1e7; }
 .feature .section-intro { color: #c3cec0; }
-
-.feature-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 20px;
-}
-
-.feature-card {
-  min-height: 225px;
-  padding: 28px;
-  border: 1px solid #526657;
-  background: #304739;
-}
-
-.feature-card .mini {
-  color: var(--gold);
-  font-size: 10px;
-  font-weight: 800;
-  letter-spacing: .15em;
-  text-transform: uppercase;
-}
-
-.feature-card h3 {
-  margin: 25px 0 10px;
-  font-size: 28px;
-}
-
-.feature-card p {
-  color: #cbd6ca;
-  font-size: 13px;
-}
-
-.status {
-  color: #d0d8cd;
-  font-size: 10px;
-  letter-spacing: .08em;
-  text-transform: uppercase;
-}
-
+.feature .kicker { color: #d6ad70; }
+.feature-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+.feature-card { border: 1px solid #526657; background: #304739; padding: 27px; }
+.feature-card .mini { color: #d6ad70; }
+.feature-card h3 { font-size: 28px; margin: 23px 0 10px; }
+.feature-card p { color: #cbd6ca; font-size: 13px; }
 .cta {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  justify-content: space-between;
-  gap: 25px;
-  padding: 34px;
+  gap: 24px;
   background: #e3d9c4;
+  padding: 32px;
 }
-
-.cta h2 {
-  font-size: 30px;
-}
-
-.cta p {
-  margin-bottom: 0;
-  color: #5f6b5f;
-  font-size: 13px;
-}
-
-.cta .btn {
-  flex-shrink: 0;
-  background: var(--forest);
-  color: var(--cream);
-}
-
-footer {
-  padding-block: 25px;
-  background: #17251d;
-  color: #c9d2c5;
-  font-size: 10px;
-  letter-spacing: .09em;
-  text-transform: uppercase;
-}
-
-.footer-inner {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 12px;
-}
-
-footer span:last-child { color: #9eac9a; }
-
-@media (max-width: 780px) {
-  .hero-grid {
-    grid-template-columns: 1fr;
-    gap: 25px;
-    padding-block: 55px;
-  }
-
-  .art { max-width: 390px; }
-  .about-grid { grid-template-columns: 1fr; gap: 28px; }
-  .question-grid { grid-template-columns: 1fr; }
-  .qcard { min-height: 0; }
-  .workflow { grid-template-columns: 1fr 1fr; }
-  .feature-grid { grid-template-columns: 1fr; }
-  .section-heading { display: block; }
+.cta h2 { font-size: 30px; margin: 0 0 8px; }
+.cta p { color: #5f6b5f; font-size: 13px; margin: 0; }
+.cta .btn { background: var(--green); color: white; white-space: nowrap; }
+footer { background: #17251d; color: #c9d2c5; padding: 25px 0; font-size: 10px; }
+.foot { display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; }
+@media (max-width: 800px) {
+  .hero-grid, .about-grid { grid-template-columns: 1fr; }
+  .hero-grid { gap: 25px; padding: 55px 0; }
+  .visual { min-height: 300px; }
+  .section { padding: 60px 0; }
+  .section-head { display: block; }
   .section-intro { margin-top: 15px; }
+  .question-grid, .gallery, .map-gallery, .feature-grid { grid-template-columns: 1fr; }
+  .workflow { grid-template-columns: 1fr 1fr; }
+  .animation-panel iframe { height: 430px; }
 }
-
-@media (max-width: 480px) {
+@media (max-width: 520px) {
   .wrap { width: calc(100% - 30px); }
-  nav { min-height: 70px; }
-  .brand { font-size: 9px; letter-spacing: .07em; }
-  .brand-mark { width: 32px; height: 32px; }
-  .navlinks { gap: 12px; font-size: 10px; }
-  .navlinks a:nth-child(2) { display: none; }
+  .nav { align-items: flex-start; padding: 15px 0; flex-direction: column; }
+  .navlinks { gap: 12px; }
   h1 { font-size: 48px; }
-  .section { padding-block: 55px; }
-  .workflow { gap: 22px 14px; }
+  .lead { font-size: 15px; }
+  .workflow { grid-template-columns: 1fr 1fr; }
   .cta { align-items: flex-start; flex-direction: column; padding: 25px; }
-  .footer-inner { flex-direction: column; }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  *, *::before, *::after {
-    transition-duration: .01ms !important;
-    animation-duration: .01ms !important;
-  }
+  .animation-panel iframe { height: 350px; }
 }
 </style>
 </head>
-
 <body>
+<div id="app">
 <header class="hero">
   <div class="wrap">
-    <nav aria-label="Main navigation">
-      <a class="brand" href="#top" style="text-decoration:none">
-        <span class="brand-mark">C</span>
-        <span>Field notes · Cape Town</span>
-      </a>
+    <nav class="nav">
+      <div class="brand"><span class="mark">C</span><span>Field notes · Cape Town</span></div>
       <div class="navlinks">
         <a href="#research">Research</a>
         <a href="#approach">Approach</a>
+        <a href="#visualisations">Figures</a>
+        <a href="#animation">Animation</a>
         <a href="#project">Project</a>
       </div>
     </nav>
-
-    <div class="hero-grid" id="top">
+    <div class="hero-grid">
       <div>
         <div class="eyebrow">Wildlife ecology · Geospatial data science</div>
         <h1>Caracals<br>in <em>Cape Town</em></h1>
-        <p class="lead">
-          Reading the city through the movements of one elusive wild cat.
-          Exploring how roads, urbanisation and time of day relate to caracal
-          movement using GPS tracking and spatial analysis.
-        </p>
+        <p class="lead">Reading the city through the movements of one elusive wild cat. Exploring how roads, urbanisation and time of day relate to caracal movement using GPS tracking and spatial analysis.</p>
         <div class="actions">
-          <a class="btn btn-gold"
-             href="https://github.com/zegamel12/caracals-in-cape-town"
-             target="_blank" rel="noopener noreferrer">
-            Explore the code ↗
-          </a>
-          <a class="btn btn-outline" href="#research">
-            Discover the research ↓
-          </a>
+          <a class="btn primary" href="https://github.com/zegamel12/caracals-in-cape-town" target="_blank" rel="noreferrer">Explore the code ↗</a>
+          <a class="btn ghost" href="#research">Discover the research ↓</a>
         </div>
-        <div class="hero-note">
-          A reproducible Python workflow · Cape Town, South Africa
-        </div>
+        <div class="hero-note">A reproducible Python workflow · Cape Town, South Africa</div>
       </div>
-
-      <div class="art">
-        <svg viewBox="0 0 520 430" role="img"
-             aria-label="Stylised caracal against a golden sunset and Cape landscape"
-             xmlns="http://www.w3.org/2000/svg">
+      <div class="visual" aria-label="Stylised caracal illustration">
+        <svg class="cat" viewBox="0 0 520 430" role="img" aria-label="Illustration of a caracal" xmlns="http://www.w3.org/2000/svg">
           <defs>
             <linearGradient id="fur" x1="0" y1="0" x2="1" y2="1">
               <stop offset="0" stop-color="#d6a66b"/>
               <stop offset=".6" stop-color="#a76f43"/>
               <stop offset="1" stop-color="#75492f"/>
             </linearGradient>
-            <linearGradient id="chest" x1="0" y1="0" x2="0" y2="1">
-              <stop stop-color="#ead1a4"/>
-              <stop offset="1" stop-color="#b98c5d"/>
-            </linearGradient>
           </defs>
-
-          <circle cx="355" cy="150" r="130" fill="#cda66b"/>
-          <path d="M0 300 L80 245 150 285 240 210 310 275 410 195 520 260 V430 H0Z"
-                fill="#42563d"/>
-          <path d="M0 345 L100 300 190 330 300 270 390 325 520 275 V430 H0Z"
-                fill="#19291f"/>
-
-          <path d="M355 288 Q438 300 442 354 Q445 383 411 377
-                   Q435 360 414 340 Q392 322 337 334Z"
-                fill="#8b5939"/>
-          <path d="M140 228 Q174 174 247 180 Q301 178 352 222
-                   Q385 254 368 304 L348 352 L315 352 L303 290
-                   Q263 314 222 300 L206 357 L173 357 L178 284
-                   Q143 273 140 228Z"
-                fill="url(#fur)"/>
-          <path d="M286 213 Q321 214 342 248 L327 307
-                   Q308 293 292 268 L268 246Z"
-                fill="url(#chest)"/>
-
-          <path d="M109 151 Q119 113 153 112 Q182 111 202 139
-                   L211 178 Q196 213 163 220 Q128 213 110 187Z"
-                fill="url(#fur)"/>
-
-          <path d="M119 139 L98 42 Q94 28 104 44 L143 108Z"
-                fill="#a66e43"/>
-          <path d="M166 117 L187 26 Q193 13 194 36 L190 131Z"
-                fill="#a66e43"/>
-          <path d="M101 45 L116 117 L108 106Z M190 34 L181 112 L187 93Z"
-                fill="#392d25"/>
-
-          <path d="M120 177 Q91 175 78 194 Q91 218 126 211 L151 194Z"
-                fill="#e5c9a0"/>
+          <path d="M355 288 Q438 300 442 354 Q445 383 411 377 Q435 360 414 340 Q392 322 337 334Z" fill="#8b5939"/>
+          <path d="M140 228 Q174 174 247 180 Q301 178 352 222 Q385 254 368 304 L348 352 L315 352 L303 290 Q263 314 222 300 L206 357 L173 357 L178 284 Q143 273 140 228Z" fill="url(#fur)"/>
+          <path d="M286 213 Q321 214 342 248 L327 307 Q308 293 292 268 L268 246Z" fill="#ead1a4"/>
+          <path d="M109 151 Q119 113 153 112 Q182 111 202 139 L211 178 Q196 213 163 220 Q128 213 110 187Z" fill="url(#fur)"/>
+          <path d="M119 139 L98 42 Q94 28 104 44 L143 108Z" fill="#a66e43"/>
+          <path d="M166 117 L187 26 Q193 13 194 36 L190 131Z" fill="#a66e43"/>
+          <path d="M101 45 L116 117 L108 106Z M190 34 L181 112 L187 93Z" fill="#392d25"/>
+          <path d="M120 177 Q91 175 78 194 Q91 218 126 211 L151 194Z" fill="#e5c9a0"/>
           <path d="M80 193 L92 187 L100 195 L90 202Z" fill="#3c2d25"/>
-          <path d="M93 203 Q108 211 120 202" fill="none"
-                stroke="#6d4832" stroke-width="3" stroke-linecap="round"/>
-
-          <path d="M122 159 Q138 148 154 160 Q139 169 122 159Z"
-                fill="#f3dca8"/>
+          <path d="M93 203 Q108 211 120 202" fill="none" stroke="#6d4832" stroke-width="3" stroke-linecap="round"/>
+          <path d="M122 159 Q138 148 154 160 Q139 169 122 159Z" fill="#f3dca8"/>
           <ellipse cx="139" cy="159" rx="4" ry="7" fill="#241f19"/>
-          <path d="M118 150 Q136 139 156 151" fill="none"
-                stroke="#4c3426" stroke-width="5" stroke-linecap="round"/>
-          <path d="M126 173 L110 187 M148 178 L136 195"
-                stroke="#69442d" stroke-width="4" stroke-linecap="round"/>
-
-          <path d="M184 282 L181 352 Q182 364 164 365 L151 360
-                   L163 347 L159 284Z" fill="#9e6941"/>
-          <path d="M312 284 L327 350 Q330 364 348 361 L358 354
-                   L342 344 L339 280Z" fill="#8f5c3b"/>
-          <path d="M164 360 L153 369 L181 369 L185 361
-                   M329 359 L321 369 L354 368 L359 359"
-                fill="#d2a16a"/>
-
+          <path d="M118 150 Q136 139 156 151" fill="none" stroke="#4c3426" stroke-width="5" stroke-linecap="round"/>
+          <path d="M126 173 L110 187 M148 178 L136 195" stroke="#69442d" stroke-width="4" stroke-linecap="round"/>
+          <path d="M184 282 L181 352 Q182 364 164 365 L151 360 L163 347 L159 284Z" fill="#9e6941"/>
+          <path d="M312 284 L327 350 Q330 364 348 361 L358 354 L342 344 L339 280Z" fill="#8f5c3b"/>
+          <path d="M164 360 L153 369 L181 369 L185 361 M329 359 L321 369 L354 368 L359 359" fill="#d2a16a"/>
           <g fill="#6f452e" opacity=".72">
             <ellipse cx="220" cy="218" rx="5" ry="3"/>
             <ellipse cx="245" cy="207" rx="4" ry="2.5"/>
@@ -572,197 +337,165 @@ footer span:last-child { color: #9eac9a; }
             <ellipse cx="252" cy="256" rx="5" ry="3"/>
             <ellipse cx="278" cy="242" rx="3.5" ry="2"/>
           </g>
-          <path d="M142 226 Q163 240 181 231 M211 181 Q227 192 240 184"
-                stroke="#e2b57d" stroke-width="3" opacity=".6"
-                fill="none" stroke-linecap="round"/>
         </svg>
-        <div class="art-caption">Caracal caracal · Field emblem</div>
+        <div class="image-caption">Caracal caracal · Cape Town</div>
       </div>
     </div>
   </div>
 </header>
 
 <main>
-  <section class="section" id="about">
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <div class="kicker">01 / The project</div>
-          <h2>Wild lives, shared landscapes.</h2>
-        </div>
-        <p class="section-intro">
-          A data-led look at how a native predator moves through a landscape
-          shaped by both nature and people.
-        </p>
-      </div>
-
-      <div class="about-grid">
-        <blockquote class="quote">
-          “Every GPS point is a small clue about how wildlife navigates a
-          changing world.”
-        </blockquote>
-        <div class="bodycopy">
-          <p>
-            This project investigates caracal GPS observations in and around
-            Cape Town, asking how movement relates to road proximity, landscape
-            context and day–night patterns.
-          </p>
-          <p>
-            A reproducible Python pipeline processes tracking data and
-            generates analyses and visualisations. The aim is to make the
-            analytical process transparent—from data preparation to outputs
-            that can be explored and interpreted.
-          </p>
-          <div class="tags">
-            <span class="tag">GPS tracking</span>
-            <span class="tag">GIS</span>
-            <span class="tag">OpenStreetMap</span>
-            <span class="tag">Python</span>
-            <span class="tag">Spatial ecology</span>
-            <span class="tag">Statistical modelling</span>
-          </div>
+<section class="section" id="about">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">01 / The project</div><h2>Wild lives, shared landscapes.</h2></div>
+      <p class="section-intro">A data-led look at how a native predator moves through a landscape shaped by both nature and people.</p>
+    </div>
+    <div class="about-grid">
+      <blockquote class="pullquote">“Every GPS point is a small clue about how wildlife navigates a changing world.”</blockquote>
+      <div class="bodycopy">
+        <p>This project investigates caracal GPS observations in and around Cape Town, asking how movement relates to road proximity, landscape context and day–night patterns.</p>
+        <p>A reproducible Python pipeline processes tracking data and generates statistical analyses and visualisations. The aim is to make the analytical process transparent—from data preparation through to outputs that can be explored and interpreted.</p>
+        <div class="tags">
+          <span class="tag">GPS tracking</span><span class="tag">GIS</span><span class="tag">OpenStreetMap</span><span class="tag">Python</span><span class="tag">Spatial ecology</span><span class="tag">Statistical modelling</span>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="section questions" id="research">
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <div class="kicker">02 / Research questions</div>
-          <h2>Three questions to investigate.</h2>
-        </div>
-        <p class="section-intro">
-          The analysis focuses on movement speed and whether its relationship
-          with roads varies across place and time.
-        </p>
-      </div>
+<section class="section questions" id="research">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">02 / Research questions</div><h2>Three questions to investigate.</h2></div>
+      <p class="section-intro">The analysis focuses on movement speed and whether its relationship with roads varies across place and time.</p>
+    </div>
+    <div class="question-grid">
+      <article class="qcard"><div class="qnum">QUESTION / 01</div><h3>Do roads matter?</h3><p>Does caracal movement speed vary with distance from roads?</p></article>
+      <article class="qcard"><div class="qnum">QUESTION / 02</div><h3>Does landscape change the pattern?</h3><p>Does the relationship between road distance and movement differ in urban areas and wildland?</p></article>
+      <article class="qcard"><div class="qnum">QUESTION / 03</div><h3>Does time of day matter?</h3><p>Does the relationship between road distance and movement change between day and night?</p></article>
+    </div>
+  </div>
+</section>
 
-      <div class="question-grid">
-        <article class="qcard">
-          <div class="qnum">QUESTION / 01</div>
-          <h3>Do roads matter?</h3>
-          <p>Does caracal movement speed vary with distance from roads?</p>
-        </article>
-        <article class="qcard">
-          <div class="qnum">QUESTION / 02</div>
-          <h3>Does landscape change the pattern?</h3>
-          <p>
-            Does the relationship between road distance and movement differ
-            between urban areas and wildland?
-          </p>
-        </article>
-        <article class="qcard">
-          <div class="qnum">QUESTION / 03</div>
-          <h3>Does time of day matter?</h3>
-          <p>
-            Does the relationship between road distance and movement change
-            between day and night?
-          </p>
-        </article>
+<section class="section" id="approach">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">03 / Analytical approach</div><h2>From tracking points to insight.</h2></div>
+      <p class="section-intro">A modular workflow designed to keep processing steps organised, repeatable and easier to inspect.</p>
+    </div>
+    <div class="workflow">
+      <article class="step"><div class="step-icon">⌖</div><h3>Collect</h3><p>Start with GPS tracking observations and relevant spatial context.</p></article>
+      <article class="step"><div class="step-icon">⌘</div><h3>Process</h3><p>Prepare tracking data and derive movement and landscape variables.</p></article>
+      <article class="step"><div class="step-icon">⌁</div><h3>Model</h3><p>Explore associations with road distance, landscape type and day–night patterns.</p></article>
+      <article class="step"><div class="step-icon">↗</div><h3>Communicate</h3><p>Generate plots, animations and dashboard-ready outputs for exploration.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="visualisations">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">04 / Research figures</div><h2>The data, in view.</h2></div>
+      <p class="section-intro">Study-area context, GPS sampling and figures addressing the three research questions.</p>
+    </div>
+    <div class="gallery">
+      <article class="figure-card">
+        <a href="figures/s09a_gps_points_per_caracal.png" target="_blank" rel="noreferrer"><img src="figures/s09a_gps_points_per_caracal.png" alt="GPS observations per caracal" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Dataset overview</div><h3>GPS points per caracal</h3><p>Shows how GPS observations are distributed across individual caracals.</p></div>
+      </article>
+      <article class="figure-card">
+        <a href="figures/s03a_roads.png" target="_blank" rel="noreferrer"><img src="figures/s03a_roads.png" alt="Road network within the study area" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Study-area context</div><h3>Road network</h3><p>Maps the roads used to examine caracal movement in relation to roads.</p></div>
+      </article>
+      <article class="figure-card">
+        <a href="figures/s13_q1_speed_vs_distance.png" target="_blank" rel="noreferrer"><img src="figures/s13_q1_speed_vs_distance.png" alt="Caracal speed by distance from roads" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Research question 01</div><h3>Speed vs. road distance</h3><p>Compares movement-speed statistics across distance classes from roads.</p></div>
+      </article>
+      <article class="figure-card">
+        <a href="figures/s03b_landuse_classes.png" target="_blank" rel="noreferrer"><img src="figures/s03b_landuse_classes.png" alt="Land-use classes within the study area" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Study-area context</div><h3>Land-use classes</h3><p>Shows the landscape classes used to compare urban and wildland settings.</p></div>
+      </article>
+      <article class="figure-card">
+        <a href="figures/s13_q2_urban_vs_wildland.png" target="_blank" rel="noreferrer"><img src="figures/s13_q2_urban_vs_wildland.png" alt="Caracal movement in urban and wildland landscapes" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Research question 02</div><h3>Urban vs. wildland</h3><p>Compares speed and road-distance patterns across landscape types.</p></div>
+      </article>
+      <article class="figure-card">
+        <a href="figures/s13_q3_day_vs_night.png" target="_blank" rel="noreferrer"><img src="figures/s13_q3_day_vs_night.png" alt="Caracal movement during day and night" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Research question 03</div><h3>Day vs. night</h3><p>Compares movement-speed patterns and road-distance relationships by time of day.</p></div>
+      </article>
+    </div>
+    <p class="gallery-note">Images are loaded from <code>docs/figures/</code>. Copy the required PNG files from the pipeline output folder into this website folder, using the filenames above.</p>
+  </div>
+</section>
+
+<section class="section" id="animation">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">05 / Movement animation</div><h2>Follow the movement.</h2></div>
+      <p class="section-intro">An embedded view of the caracal GPS movement animation produced by the pipeline.</p>
+    </div>
+    <div class="animation-panel">
+      <iframe src="animations/caracal_movement.html" title="Caracal GPS movement animation" loading="lazy"></iframe>
+      <div class="animation-caption">
+        <span>Caracal GPS movement through the study area</span>
+        <a href="animations/caracal_movement.html" target="_blank" rel="noreferrer">Open animation in a new tab ↗</a>
       </div>
     </div>
-  </section>
+    <p class="gallery-note">Place the animation at <code>docs/animations/caracal_movement.html</code>. The pipeline source is <code>python/step_dirs/step05_animation/data/s05a_animation.html</code>. Preserve any companion files or folders referenced by that HTML.</p>
+  </div>
+</section>
 
-  <section class="section" id="approach">
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <div class="kicker">03 / Analytical approach</div>
-          <h2>From tracking points to insight.</h2>
-        </div>
-        <p class="section-intro">
-          A modular workflow designed to keep processing steps organised,
-          repeatable and easier to inspect.
-        </p>
-      </div>
-
-      <div class="workflow">
-        <article class="step">
-          <div class="step-icon" aria-hidden="true">⌖</div>
-          <h3>Collect</h3>
-          <p>Start with GPS tracking observations and relevant spatial context.</p>
-        </article>
-        <article class="step">
-          <div class="step-icon" aria-hidden="true">⌘</div>
-          <h3>Process</h3>
-          <p>Prepare tracking data and derive movement and landscape variables.</p>
-        </article>
-        <article class="step">
-          <div class="step-icon" aria-hidden="true">⌁</div>
-          <h3>Model</h3>
-          <p>Explore associations with road distance, landscape type and day–night patterns.</p>
-        </article>
-        <article class="step">
-          <div class="step-icon" aria-hidden="true">↗</div>
-          <h3>Communicate</h3>
-          <p>Generate plots, animations and dashboard-ready outputs for exploration.</p>
-        </article>
-      </div>
+<section class="section" id="maps">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">06 / Spatial maps</div><h2>The landscape behind the data.</h2></div>
+      <p class="section-intro">Explore the road network and land-use context used to interpret caracal movement across urban and wildland settings.</p>
     </div>
-  </section>
-
-  <section class="section feature">
-    <div class="wrap">
-      <div class="section-heading">
-        <div>
-          <div class="kicker">04 / Project outputs</div>
-          <h2>Built to be explored.</h2>
-        </div>
-        <p class="section-intro">
-          Output types the pipeline is designed to produce. Add real project
-          figures here as you prepare them for publication.
-        </p>
-      </div>
-
-      <div class="feature-grid">
-        <article class="feature-card">
-          <div class="mini">Output type / 01</div>
-          <h3>Movement visualisations</h3>
-          <p>
-            Plots and animations that help communicate how tracking observations
-            unfold across space and time.
-          </p>
-          <div class="status">Designed for pipeline outputs</div>
-        </article>
-        <article class="feature-card">
-          <div class="mini">Output type / 02</div>
-          <h3>Spatial &amp; statistical analysis</h3>
-          <p>
-            Explore movement patterns in relation to road proximity, landscape
-            context and time of day.
-          </p>
-          <div class="status">Research questions defined</div>
-        </article>
-      </div>
+    <div class="map-gallery">
+      <article class="map-card">
+        <a href="figures/s03a_roads.png" target="_blank" rel="noreferrer"><img src="figures/s03a_roads.png" alt="Road network map" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Spatial layer / 01</div><h3>Road network map</h3><p>Open the full-size map of roads used for road-distance analysis.</p></div>
+      </article>
+      <article class="map-card">
+        <a href="figures/s03b_landuse_classes.png" target="_blank" rel="noreferrer"><img src="figures/s03b_landuse_classes.png" alt="Land-use map" loading="lazy"></a>
+        <div class="figure-copy"><div class="mini">Spatial layer / 02</div><h3>Land-use map</h3><p>Open the full-size map showing the landscape classes used in the comparisons.</p></div>
+      </article>
     </div>
-  </section>
+    <p class="gallery-note">These cards use the same PNG files as the figure gallery. For interactive maps, export a self-contained HTML map and embed it in a similar iframe panel.</p>
+  </div>
+</section>
 
-  <section class="section" id="project">
-    <div class="wrap">
-      <div class="cta">
-        <div>
-          <div class="kicker">05 / Explore the project</div>
-          <h2>Curiosity, code and conservation.</h2>
-          <p>Explore the pipeline structure and project documentation on GitHub.</p>
-        </div>
-        <a class="btn"
-           href="https://github.com/zegamel12/caracals-in-cape-town"
-           target="_blank" rel="noopener noreferrer">
-          Visit GitHub ↗
-        </a>
-      </div>
+<section class="section feature">
+  <div class="wrap">
+    <div class="section-head">
+      <div><div class="kicker">07 / Project outputs</div><h2>Built to be explored.</h2></div>
+      <p class="section-intro">The pipeline generates movement animations, figures and dashboard-ready outputs for further exploration.</p>
     </div>
-  </section>
+    <div class="feature-grid">
+      <article class="feature-card"><div class="mini">Output type / 01</div><h3>Movement visualisations</h3><p>Plots and animations that help communicate how tracking observations unfold across space and time.</p></article>
+      <article class="feature-card"><div class="mini">Output type / 02</div><h3>Spatial &amp; statistical analysis</h3><p>Explore movement patterns in relation to road proximity, landscape context and time of day.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="project">
+  <div class="wrap">
+    <div class="cta">
+      <div><h2>Explore the work behind the story.</h2><p>Browse the code, pipeline structure and project documentation on GitHub.</p></div>
+      <a class="btn" href="https://github.com/zegamel12/caracals-in-cape-town" target="_blank" rel="noreferrer">Visit GitHub repository ↗</a>
+    </div>
+  </div>
+</section>
 </main>
 
 <footer>
-  <div class="wrap footer-inner">
+  <div class="wrap foot">
     <span>Caracals in Cape Town · Research portfolio</span>
     <span>Wildlife ecology / Geospatial data science</span>
     <span>Made for curious minds &amp; wild places</span>
   </div>
 </footer>
+</div>
 </body>
 </html>
