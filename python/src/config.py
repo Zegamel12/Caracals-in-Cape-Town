@@ -77,8 +77,6 @@ STUDY_LOCATION = {"name": "Cape Town", "region": "Western Cape", "lat": -33.9249
 # Movebank
 MOVEbank_STUDY_ID = "1832666571"
 
-# Set Movebank username and password
-username_movebank = "Jovado" 
-password_movebank = "waardeloos123"
+
 
 
